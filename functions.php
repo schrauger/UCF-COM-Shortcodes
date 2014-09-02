@@ -97,7 +97,7 @@ function ucf_com_shortcodes_settings() {
 	add_settings_section(
 		$promo_video_section,
 		'Promo Video',
-		'ucf_com_shortcodes_input_text',
+		'promo_video_options_callback',
 		$settings_page
 	);
 	add_settings_field(
@@ -166,6 +166,10 @@ function ucf_com_shortcodes_settings() {
 function brightcove_options_callback(){
 	echo '<p>Set the defaults for Brightcove videos</p>';
 }
+function promo_video_options_callback(){
+	echo '<p>Set the defaults for Promo Video</p>';
+}
+
 function ucf_com_shortcodes_input_text($args){
 	// Here, we will take the first argument of the array and add it to a label next to the input
 	$html .= '<label for="' . $args[0] . '"> '  . $args[1] . '</label>';
