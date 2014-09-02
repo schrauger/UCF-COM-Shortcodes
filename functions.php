@@ -30,13 +30,13 @@ function ucf_com_shortcodes_settings() {
 	);
 	add_settings_field(
 		'ucf_com_shortcodes_brightcove_playerID',                      // ID used to identify the field throughout the theme
-		'PlayerID',                           // The label to the left of the option interface element
+		'PlayerID (deprecated)',                           // The label to the left of the option interface element
 		'ucf_com_shortcodes_input_text',   // The name of the function responsible for rendering the option interface
 		$settings_page,                          // The page on which this option will be displayed
 		$brightcove_section,         // The name of the section to which this field belongs
 		array(                              // The array of arguments to pass to the callback.
 			'ucf_com_shortcodes_brightcove_playerID', 
-			'PlayerID as defined by your Brightcove account'
+			'PlayerID as defined by your Brightcove account. This has been replaced by the playerKey field.'
 		)
 	);
 	register_setting(
