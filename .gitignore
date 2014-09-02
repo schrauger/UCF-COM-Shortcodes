@@ -1,0 +1,8 @@
+config.py
+config.pyc
+last_run.py
+last_run.pyc
+.project
+.pydevproject
+.buildpath
+.settings
