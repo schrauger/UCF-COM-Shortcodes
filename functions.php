@@ -24,7 +24,7 @@ function ucf_com_shortcodes_settings() {
 	 */
 	add_settings_section(
 		$brightcove_section,
-		'Custom Shortcove Options - Brightcove (brightcove)',
+		'Custom Shortcode Options - Brightcove (brightcove)',
 		'brightcove_options_callback',
 		$settings_page
 	);
@@ -96,7 +96,7 @@ function ucf_com_shortcodes_settings() {
 	 */
 	add_settings_section(
 		$promo_video_section,
-		'Custom Shortcove Options - Promo Video (promo_video)',
+		'Custom Shortcode Options - Promo Video (promo_video)',
 		'promo_video_options_callback',
 		$settings_page
 	);
