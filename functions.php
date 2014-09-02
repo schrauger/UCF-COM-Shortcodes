@@ -103,7 +103,7 @@ function ucf_com_shortcodes_settings() {
 	add_settings_field(
 		'ucf_com_shortcodes_promo_bcpid',
 		'Page ID',
-		'ucf_com_shortcodes_ucf_com_shortcodes_input_text',
+		'ucf_com_shortcodes_input_text',
 		$settings_page,
 		$promo_video_section,
 		array(
