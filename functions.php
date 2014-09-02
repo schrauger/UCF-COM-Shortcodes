@@ -171,11 +171,11 @@ function promo_video_options_callback(){
 }
 
 function ucf_com_shortcodes_input_text($args){
-	// Here, we will take the first argument of the array and add it to a label next to the input
-	$html .= '<label for="' . $args[0] . '"> '  . $args[1] . '</label>';
-	
 	// Note the ID and the name attribute of the element should match that of the ID in the call to add_settings_field
 	$html = '<input type="text" id="' . $args[0] . '" name="' . $args[0] . '" value="'.get_option($args[0]) .'"/>';
+	
+	// Here, we will take the first argument of the array and add it to a label next to the input
+	$html .= '<label for="' . $args[0] . '"> '  . $args[1] . '</label>';
 	echo $html;
 }
 
