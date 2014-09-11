@@ -1,9 +1,9 @@
-@CHARSET "UTF-8";
+
 .dashicons-format-video:before {
   font-family: dashicons;
 }
 i.mce-i-icon {
-	font: 400 20px/1 dashicons;
+	font-family: dashicons;
 	padding: 0;
 	vertical-align: top;
 	speak: none;
