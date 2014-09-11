@@ -240,6 +240,7 @@ function promo_func( $attrs ) {
 //}
 function ucf_com_tinymce_brightcove_plugin($plugin_array) {
 	$plugin_array['ucf_com_brightcove'] = plugins_url( '/plugin.js', __FILE__); // include the javascript for the button, located inside the current plugin folder
+	return $plugin_array;
 }
 function ucf_com_tinymce_brightcove_button($buttons){
 	array_push($buttons, 'separator', 'ucf_com_brightcove_key');
