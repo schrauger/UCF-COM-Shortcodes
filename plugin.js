@@ -5,7 +5,7 @@
         editor.addButton( 'ucf_com_brightcove_key', {
 
             text: 'Brightcove',
-            icon: false, // video icon
+            icon: 'dashicons-media-video', // video icon
             onclick: function() {
                 // Open window
                 editor.windowManager.open( {
