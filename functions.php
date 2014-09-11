@@ -244,6 +244,7 @@ function ucf_com_tinymce_brightcove_js($plugin_array) {
 	return $plugin_array;
 }
 function ucf_com_tinymce_brightcove_css($mce_css) {
+	wp_register_style('ucf_com_brightcove_css_file', plugins_url('style.css', __FILE__));
 	wp_enqueue_style('ucf_com_brightcove_css_file');
 	/*
 	  
@@ -255,6 +256,7 @@ function ucf_com_tinymce_brightcove_css($mce_css) {
 	
 	*/
 	return $mce_css;
+	
 }
 function ucf_com_tinymce_brightcove_button($buttons){
 	array_push($buttons, 'separator', 'ucf_com_brightcove_key');
