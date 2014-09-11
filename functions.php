@@ -179,10 +179,6 @@ function ucf_com_shortcodes_input_text($args){
 	echo $html;
 }
 
-// Promo Video Options
-$promo_id = get_option('ucf_com_shortcodes_promo_id');
-
-
 /**
  * base_url Short Code
  * This returns the base url of the current site.
@@ -201,13 +197,6 @@ function base_url( $attrs ) {
  * brightcove Short Code
  * This places an inline video on the page. The video is hosted on Brightcove.com.
  */
-
-/*
- *
-*  TODO: Add variables for width and height
-*
-*/
-
 add_shortcode( 'brightcove', 'bc_func' );
 function bc_func( $attrs ) {
 
