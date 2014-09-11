@@ -236,15 +236,20 @@ function promo_func( $attrs ) {
 //add_action( 'admin_head', 'ucf_com_tinymce');	// only add these filters with admin pages
 //function ucf_com_tinymce(){
 	add_filter('mce_external_plugins','ucf_com_tinymce_brightcove_js');
-	add_action('admin_enqueue_scripts', 'ucf_com_brightcove_css');
+	add_filter('mce_css', 'ucf_com_brightcove_css');
 	add_filter('mce_buttons','ucf_com_tinymce_brightcove_button');
 //}
 function ucf_com_tinymce_brightcove_js($plugin_array) {
 	$plugin_array['ucf_com_brightcove'] = plugins_url( '/plugin.js', __FILE__); // include the javascript for the button, located inside the current plugin folder
 	return $plugin_array;
 }
-function ucf_com_tinymce_brightcove_css() {
-	wp_enqueue_style('ucf_com_brightcove_css', plugins_url('/style.css', __FILE__));
+function ucf_com_tinymce_brightcove_css($mce_css) {
+	if ( ! empty( $mce_css ) )
+		$mce_css .= ',';
+
+	$mce_css .= plugins_url( 'style.css', __FILE__ );
+
+	return $mce_css;
 }
 function ucf_com_tinymce_brightcove_button($buttons){
 	array_push($buttons, 'separator', 'ucf_com_brightcove_key');
