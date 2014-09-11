@@ -233,11 +233,11 @@ function promo_func( $attrs ) {
 /**
  * TinyMCE Buttons
  */
-add_action( 'admin_head', 'ucf_com_tinymce');	// only add these filters with admin pages
-function ucf_com_tinymce(){
+//add_action( 'admin_head', 'ucf_com_tinymce');	// only add these filters with admin pages
+//function ucf_com_tinymce(){
 	add_filter('mce_external_plugins','ucf_com_tinymce_brightcove_plugin');
 	add_filter('mce_buttons','ucf_com_tinymce_brightcove_button');
-}
+//}
 function ucf_com_tinymce_brightcove_plugin($plugin_array) {
 	$plugin_array['ucf_com_brightcove'] = plugins_url( '/plugin.js', __FILE__); // include the javascript for the button, located inside the current plugin folder
 }
