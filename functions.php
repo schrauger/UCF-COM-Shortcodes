@@ -236,7 +236,7 @@ function promo_func( $attrs ) {
 //add_action( 'admin_head', 'ucf_com_tinymce');	// only add these filters with admin pages
 //function ucf_com_tinymce(){
 	add_filter('mce_external_plugins','ucf_com_tinymce_brightcove_js');
-	add_filter('mce_css', 'ucf_com_brightcove_css');
+	add_filter('mce_css', 'ucf_com_tinymce_brightcove_css');
 	add_filter('mce_buttons','ucf_com_tinymce_brightcove_button');
 //}
 function ucf_com_tinymce_brightcove_js($plugin_array) {
