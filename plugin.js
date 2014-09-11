@@ -3,9 +3,9 @@
 
         // Add a button that opens a window
         editor.addButton( 'ucf_com_brightcove_key', {
-
+        	title: 'Brightcove Video Shortcode'
             text: 'Brightcove',
-            icon: 'dashicons-format-video', // video icon
+            icon: 'icon dashicons-format-video', // video icon
             onclick: function() {
                 // Open window
                 editor.windowManager.open( {
