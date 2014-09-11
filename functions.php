@@ -249,6 +249,8 @@ function ucf_com_tinymce_brightcove_css($mce_css) {
 
 	$mce_css .= plugins_url( 'style.css', __FILE__ );
 	add_editor_style(plugins_url('style.css', __FILE__));
+	wp_register_style('ucf_com_brightcove_css_file', plugins_url('style.css', __FILE__));
+	wp_enqueue_style('ucf_com_brightcove_css_file');
 	return $mce_css;
 }
 function ucf_com_tinymce_brightcove_button($buttons){
