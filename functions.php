@@ -13,6 +13,108 @@ License: GPLv2 or later
  * Settings|config page for plugin
  */
 
+class ucf_com_shortcodes_settings{
+	private $brightcove_options;
+	const brightcove_name = 'brightcove';
+	const brightcove_section = 'brightcove_settings';
+	
+	private $baseurl_options;
+	const baseurl_name = 'baseurl';
+	const baseurl_section = 'baseurl_settings';
+	
+	const page_title = 'UCF COM Shortcode Settings';
+	const menu_title = 'UCF COM Shortcode Settings';
+	const capability = 'manage_options'; // user capability required to view the page
+	const page_slug = 'ucf-com-shortcodes-settings'; // unique page name, also called menu_slug
+	const option_group_name = 'ucf-com-shortcodes-settings-group';
+	
+	
+	public function __construct() {
+		add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
+		add_action( 'admin_init', array( $this, 'page_init' ) );
+	}
+	
+	/**
+	 * Tells wordpress about a new page and what function to call to create it
+	 */
+	public function add_plugin_page(){
+		// This page will be under "Settings" menu. add_options_page is merely a WP wrapper for add_submenu_page specifying the 'options-general' menu as parent
+		add_options_page(
+			self::page_title,
+			self::menu_title,
+			self::capability,
+			self::page_slug,
+			array( $this, 'create_settings_page') // since we are putting settings on our own page, we also have to define how to print out the settings
+		);
+	}
+	
+	/**
+	 * Tells Wordpress how to output the page
+	 */
+	public function create_settings_page() {
+		// Set class property
+		$this->brightcove_options = get_option( self::brightcove_name );
+		$this->baseurl_options = get_option( self::baseurl_name );
+		?>
+	        <div class="wrap">
+	            <?php screen_icon(); ?>
+	            <h2>My Settings</h2>           
+	            <form method="post" action="options.php">
+	            <?php
+	                // This prints out all hidden setting fields
+	                settings_fields( self::option_group_name );   
+	                do_settings_sections( self::page_slug );
+	                submit_button(); 
+	            ?>
+	            </form>
+	        </div>
+        <?php
+	}
+	
+	public function page_init() {
+		register_setting(
+			self::option_group_name,
+			self::brightcove_name, // brightcove array of options
+			array( $this, 'sanitize') // sanitize function
+		);
+		
+		add_settings_section(
+			self::brightcove_section,
+			'Custom Shortcode Options - Brightcove (brightcove)',
+			array( $this, 'brightcove_section_info'),
+			self::page_slug
+		);
+		
+		add_settings_field(
+			'brightcove_playerID',                      // ID used to identify the field throughout the theme
+			'PlayerID (deprecated)',                           // The label to the left of the option interface element
+			array( $self, 'shortcodes_input_text'),   // The name of the function responsible for rendering the option interface
+			$settings_page,                          // The page on which this option will be displayed
+			self::brightcove_section,         // The name of the section to which this field belongs
+			array(                              // The array of arguments to pass to the callback.
+				'id' => 'brightcove_playerID', // copy/paste id here
+				'label' => 'PlayerID as defined by your Brightcove account. This has been replaced by the playerKey field.',
+				'section' => self::brightcove_section
+			)
+		);
+	}
+	
+	public function brightcove_section_info(){
+		echo '<p>Set the defaults for Brightcove videos</p>';
+	}
+	public function shortcodes_input_text($args){
+		// Note the ID and the name attribute of the element should match that of the ID in the call to add_settings_field
+		$html = '<input type="text" id="' . $args['id'] . '" name="' . $args['section'] . '[' . $args['id'] . ']" value="'.get_option($args['id']) .'"/>';
+		// @TODO make sure the input is sanitized. it should be from the sanitize function on save, but probably
+		//  should check on display as well.
+		
+		// Here, we will take the first argument of the array and add it to a label next to the input
+		$html .= '<label for="' . $args['id'] . '"> '  . $args['label'] . '</label>';
+		echo $html;
+	}
+
+}
+
 add_action('admin_init', 'ucf_com_shortcodes_settings');
 function ucf_com_shortcodes_settings() {
 	$settings_page = 'writing'; // display all of these settings on the 'writing' settings page
@@ -90,77 +192,6 @@ function ucf_com_shortcodes_settings() {
 	);
 
 	
-	
-	/** 
-	 * Promo Video Options
-	 */
-	add_settings_section(
-		$promo_video_section,
-		'Custom Shortcode Options - Promo Video (promo_video)',
-		'promo_video_options_callback',
-		$settings_page
-	);
-	add_settings_field(
-		'ucf_com_shortcodes_promo_bcpid',
-		'Page ID',
-		'ucf_com_shortcodes_input_text',
-		$settings_page,
-		$promo_video_section,
-		array(
-			'ucf_com_shortcodes_promo_bcpid',
-			'Video ID'
-		)
-	);
-	register_setting(
-		$settings_page,
-		'ucf_com_shortcodes_promo_bcpid'
-	);
-	add_settings_field(
-		'ucf_com_shortcodes_promo_bckey',
-		'Key',
-		'ucf_com_shortcodes_input_text',
-		$settings_page,
-		$promo_video_section,
-		array(
-			'ucf_com_shortcodes_promo_bckey',
-			'Video Key'
-		)
-	);
-	register_setting(
-		$settings_page,
-		'ucf_com_shortcodes_promo_bckey'
-	);
-	add_settings_field(
-		'ucf_com_shortcodes_promo_height',
-		'Video Height',
-		'ucf_com_shortcodes_input_text',
-		$settings_page,
-		$promo_video_section,
-		array(
-			'ucf_com_shortcodes_promo_height',
-			'Height of the Promo Video'
-		)
-	);
-	register_setting(
-		$settings_page,
-		'ucf_com_shortcodes_promo_height'
-	);
-	add_settings_field(
-		'ucf_com_shortcodes_promo_width',
-		'Video Width',
-		'ucf_com_shortcodes_input_text',
-		$settings_page,
-		$promo_video_section,
-		array(
-			'ucf_com_shortcodes_promo_width',
-			'Width of the Promo Video'
-		)
-	);
-	register_setting(
-		$settings_page,
-		'ucf_com_shortcodes_promo_width'
-	);
-
 }
 
 function brightcove_options_callback(){
@@ -221,14 +252,6 @@ function bc_func( $attrs ) {
 
 }
 
-//------------------------------------------------------------EMbed promo video shortcode
-
-add_shortcode( 'promo_video', 'promo_func' );
-function promo_func( $attrs ) {
-
-	return '<div class="half home-video white-box"><a href="http://video.med.ucf.edu/services/player/bcpid'.get_option('ucf_com_shortcodes_promo_bcpid').'?bckey='.get_option('ucf_com_shortcodes_promo_bckey').'&width='.get_option('ucf_com_shortcodes_promo_width').'&height='.get_option('ucf_com_shortcodes_promo_height').'" class="video-prev fancybox-video">Play the '.get_bloginfo( 'name' ).' Video</a></div>';
-
-}
 
 /**
  * TinyMCE Buttons
