@@ -1,14 +1,15 @@
 
 .dashicons-format-video:before {
-  font-family: dashicons;
+    font-family: dashicons;
 }
+
 i.mce-i-icon {
-	font-family: dashicons;
-	padding: 0;
-	vertical-align: top;
-	speak: none;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	margin-left: -2px;
-	padding-right: 2px
+    font-family: dashicons;
+    padding: 0;
+    vertical-align: top;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-left: -2px;
+    padding-right: 2px
 }
