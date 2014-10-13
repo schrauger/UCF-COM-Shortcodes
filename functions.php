@@ -22,7 +22,7 @@ class ucf_com_shortcodes_settings {
 	const baseurl_section = 'baseurl_settings';
 
 	const page_title        = 'UCF COM Shortcode Settings';
-	const menu_title        = 'UCF COM Shortcode Settings';
+	const menu_title        = 'Shortcode Settings';
 	const capability        = 'manage_options'; // user capability required to view the page
 	const page_slug         = 'ucf-com-shortcodes-settings'; // unique page name, also called menu_slug
 	const option_group_name = 'ucf-com-shortcodes-settings-group';
@@ -217,6 +217,10 @@ class ucf_com_shortcodes_settings {
 		echo '<p>Set the defaults for Brightcove videos</p>';
 	}
 
+	/**
+	 * Prints out the HTML <input> and <label> code for each item on this plugin's settings page.
+	 * @param $args
+	 */
 	public function shortcodes_input_text( $args ) {
 		// Note the ID and the name attribute of the element should match that of the ID in the call to add_settings_field
 		$html = '<input type="text" id="' . $args[ 'id' ] . '" name="' . $args[ 'section' ] . '[' . $args[ 'id' ] . ']" value="' . get_option( $args[ 'id' ] ) . '"/>';
