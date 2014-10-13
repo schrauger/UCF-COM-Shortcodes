@@ -47,7 +47,7 @@ class ucf_com_shortcodes_settings {
 		add_action( 'admin_init', array( $this, 'page_init' ) );
 
 		// Add a link from the plugin page to this plugin's settings page
-		add_filter( 'network_admin_plugin_action_links_' . plugin_basename( plugin_dir_path( __FILE__ ) . self::page_slug . '.php' ), 'network_admin_plugin_action_links' );
+		add_filter( 'plugin_row_meta', array( $this, 'plugin_action_links' ), 10, 2 );
 
 		// Register the tinymce hooks to create buttons
 		add_filter( 'mce_external_plugins', array( $this, 'tinymce_brightcove_js' ) );
@@ -77,12 +77,12 @@ class ucf_com_shortcodes_settings {
 	 *
 	 * @return array
 	 */
-	public function network_admin_plugin_action_links( $links ) {
+	public function plugin_action_links( $links ) {
 		return array_merge(
+			$links,
 			array(
 				'settings' => '<a href="' . admin_url( 'plugins.php?page=' . self::page_slug ) . '">' . __( 'Settings', self::page_slug ) . '</a>'
-			),
-			$links
+			)
 		);
 	}
 
@@ -180,9 +180,9 @@ class ucf_com_shortcodes_settings {
 			self::page_slug,                          // The page on which this option will be displayed
 			self::brightcove_section,         // The name of the section to which this field belongs
 			array(                              // The array of arguments to pass to the callback.
-                'id'      => 'brightcove_playerID', // copy/paste id here
-                'label'   => 'PlayerID as defined by your Brightcove account. This has been replaced by the playerKey field.',
-                'section' => self::brightcove_section
+			                                    'id'      => 'brightcove_playerID', // copy/paste id here
+			                                    'label'   => 'PlayerID as defined by your Brightcove account. This has been replaced by the playerKey field.',
+			                                    'section' => self::brightcove_section
 			)
 		);
 		add_settings_field(
@@ -195,9 +195,9 @@ class ucf_com_shortcodes_settings {
 			self::page_slug,                          // The page on which this option will be displayed
 			self::brightcove_section,         // The name of the section to which this field belongs
 			array(                              // The array of arguments to pass to the callback.
-                'id'      => 'brightcove_playerKey', // copy/paste id here
-                'label'   => 'PlayerKey as defined by your Brightcove account.',
-                'section' => self::brightcove_section
+			                                    'id'      => 'brightcove_playerKey', // copy/paste id here
+			                                    'label'   => 'PlayerKey as defined by your Brightcove account.',
+			                                    'section' => self::brightcove_section
 			)
 		);
 		add_settings_field(
@@ -210,9 +210,9 @@ class ucf_com_shortcodes_settings {
 			self::page_slug,                          // The page on which this option will be displayed
 			self::brightcove_section,         // The name of the section to which this field belongs
 			array(                              // The array of arguments to pass to the callback.
-                'id'      => 'brightcove_default_height', // copy/paste id here
-                'label'   => 'Default video height (in pixels)',
-                'section' => self::brightcove_section
+			                                    'id'      => 'brightcove_default_height', // copy/paste id here
+			                                    'label'   => 'Default video height (in pixels)',
+			                                    'section' => self::brightcove_section
 			)
 		);
 		add_settings_field(
@@ -225,9 +225,9 @@ class ucf_com_shortcodes_settings {
 			self::page_slug,                          // The page on which this option will be displayed
 			self::brightcove_section,         // The name of the section to which this field belongs
 			array(                              // The array of arguments to pass to the callback.
-                'id'      => 'brightcove_default_width', // copy/paste id here
-                'label'   => 'Default video width (in pixels)',
-                'section' => self::brightcove_section
+			                                    'id'      => 'brightcove_default_width', // copy/paste id here
+			                                    'label'   => 'Default video width (in pixels)',
+			                                    'section' => self::brightcove_section
 			)
 		);
 	}
