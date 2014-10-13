@@ -180,9 +180,9 @@ class ucf_com_shortcodes_settings {
 			self::page_slug,                          // The page on which this option will be displayed
 			self::brightcove_section,         // The name of the section to which this field belongs
 			array(                              // The array of arguments to pass to the callback.
-			                                    'id'      => 'brightcove_playerID', // copy/paste id here
-			                                    'label'   => 'PlayerID as defined by your Brightcove account. This has been replaced by the playerKey field.',
-			                                    'section' => self::brightcove_section
+                'id'      => 'brightcove_playerID', // copy/paste id here
+                'label'   => 'PlayerID as defined by your Brightcove account. This has been replaced by the playerKey field.',
+                'section' => self::brightcove_section
 			)
 		);
 		add_settings_field(
@@ -195,9 +195,9 @@ class ucf_com_shortcodes_settings {
 			self::page_slug,                          // The page on which this option will be displayed
 			self::brightcove_section,         // The name of the section to which this field belongs
 			array(                              // The array of arguments to pass to the callback.
-			                                    'id'      => 'brightcove_playerKey', // copy/paste id here
-			                                    'label'   => 'PlayerKey as defined by your Brightcove account.',
-			                                    'section' => self::brightcove_section
+                'id'      => 'brightcove_playerKey', // copy/paste id here
+                'label'   => 'PlayerKey as defined by your Brightcove account.',
+                'section' => self::brightcove_section
 			)
 		);
 		add_settings_field(
@@ -210,9 +210,9 @@ class ucf_com_shortcodes_settings {
 			self::page_slug,                          // The page on which this option will be displayed
 			self::brightcove_section,         // The name of the section to which this field belongs
 			array(                              // The array of arguments to pass to the callback.
-			                                    'id'      => 'brightcove_default_height', // copy/paste id here
-			                                    'label'   => 'Default video height (in pixels)',
-			                                    'section' => self::brightcove_section
+                'id'      => 'brightcove_default_height', // copy/paste id here
+                'label'   => 'Default video height (in pixels)',
+                'section' => self::brightcove_section
 			)
 		);
 		add_settings_field(
@@ -225,9 +225,9 @@ class ucf_com_shortcodes_settings {
 			self::page_slug,                          // The page on which this option will be displayed
 			self::brightcove_section,         // The name of the section to which this field belongs
 			array(                              // The array of arguments to pass to the callback.
-			                                    'id'      => 'brightcove_default_width', // copy/paste id here
-			                                    'label'   => 'Default video width (in pixels)',
-			                                    'section' => self::brightcove_section
+                'id'      => 'brightcove_default_width', // copy/paste id here
+                'label'   => 'Default video width (in pixels)',
+                'section' => self::brightcove_section
 			)
 		);
 	}
