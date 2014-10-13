@@ -46,6 +46,9 @@ class ucf_com_shortcodes_settings {
 		add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
 		add_action( 'admin_init', array( $this, 'page_init' ) );
 
+		// Add a link from the plugin page to this plugin's settings page
+		add_filter( 'plugin_action_links_' . plugin_basename(plugin_dir_path(__FILE__) . self::page_slug . '.php'), 'plugin_action_links' );
+
 		// Register the tinymce hooks to create buttons
 		add_filter( 'mce_external_plugins', array( $this, 'tinymce_brightcove_js' ) );
 		add_filter( 'mce_css', array( $this, 'tinymce_brightcove_css' ) );
@@ -68,6 +71,20 @@ class ucf_com_shortcodes_settings {
 	}
 
 	/**
+	 * Adds a link to this plugin's setting page directly on the WordPress plugin list page
+	 * @param $links
+	 * @return array
+	 */
+	public function plugin_action_links( $links) {
+		return array_merge(
+			array(
+				'settings' => '<a href="' . admin_url( 'plugins.php?page=' . self::page_slug ) . '">' . __( 'Settings', self::page_slug ) . '</a>'
+			),
+			$links
+		);
+	}
+
+	/**
 	 * Calls all of the 'add_shortcode' api calls, after running duplication checks
 	 */
 	public function init_shortcodes() {
@@ -87,7 +104,7 @@ class ucf_com_shortcodes_settings {
 	 */
 	private function _init_shortcodes( $tag, $func ) {
 		if ( ! ( shortcode_exists( $tag ) ) ) {
-			add_shortcode( $tag, func );
+			add_shortcode( $tag, $func );
 		}
 
 	}
