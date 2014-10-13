@@ -47,7 +47,7 @@ class ucf_com_shortcodes_settings {
 		add_action( 'admin_init', array( $this, 'page_init' ) );
 
 		// Add a link from the plugin page to this plugin's settings page
-		add_filter( 'plugin_action_links_' . plugin_basename(plugin_dir_path(__FILE__) . self::page_slug . '.php'), 'plugin_action_links' );
+		add_filter( 'plugin_action_links_' . plugin_basename( plugin_dir_path( __FILE__ ) . self::page_slug . '.php' ), 'plugin_action_links' );
 
 		// Register the tinymce hooks to create buttons
 		add_filter( 'mce_external_plugins', array( $this, 'tinymce_brightcove_js' ) );
@@ -72,10 +72,12 @@ class ucf_com_shortcodes_settings {
 
 	/**
 	 * Adds a link to this plugin's setting page directly on the WordPress plugin list page
+	 *
 	 * @param $links
+	 *
 	 * @return array
 	 */
-	public function plugin_action_links( $links) {
+	public function plugin_action_links( $links ) {
 		return array_merge(
 			array(
 				'settings' => '<a href="' . admin_url( 'plugins.php?page=' . self::page_slug ) . '">' . __( 'Settings', self::page_slug ) . '</a>'
@@ -136,7 +138,7 @@ class ucf_com_shortcodes_settings {
 		?>
 		<div class="wrap" >
 
-			<h2 >My Settings</h2 >
+			<h2 ><?php echo self::page_title ?></h2 >
 
 			<form method="post" action="options.php" >
 				<?php
@@ -163,7 +165,7 @@ class ucf_com_shortcodes_settings {
 
 		add_settings_section(
 			self::brightcove_section,
-			'Custom Shortcode Options - Brightcove (brightcove)',
+			'Brightcove (brightcove)', // start of section text shown to user
 			array( $this, 'brightcove_section_info' ),
 			self::page_slug
 		);
@@ -236,6 +238,7 @@ class ucf_com_shortcodes_settings {
 
 	/**
 	 * Prints out the HTML <input> and <label> code for each item on this plugin's settings page.
+	 *
 	 * @param $args
 	 */
 	public function shortcodes_input_text( $args ) {
