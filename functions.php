@@ -78,7 +78,7 @@ class ucf_com_shortcodes_settings {
 	 * @return array
 	 */
 	public function plugin_action_links( $links ) {
-		if ( strpos ( $file, __FILE__) !== false) {
+		if ( strpos ( $file, self::page_slug) !== false) {
 			$links = array_merge(
 				$links,
 				array(
