@@ -78,12 +78,15 @@ class ucf_com_shortcodes_settings {
 	 * @return array
 	 */
 	public function plugin_action_links( $links ) {
-		return array_merge(
-			$links,
-			array(
-				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . self::page_slug ) . '">' . __( 'Settings', self::page_slug ) . '</a>'
-			)
-		);
+		if ( strpos ( $file, __FILE__) !== false) {
+			$links = array_merge(
+				$links,
+				array(
+					'settings' => '<a href="' . admin_url( 'options-general.php?page=' . self::page_slug ) . '">' . __( 'Settings', self::page_slug ) . '</a>'
+				)
+			);
+		}
+		return $links;
 	}
 
 	/**
