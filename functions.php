@@ -81,7 +81,7 @@ class ucf_com_shortcodes_settings {
 		return array_merge(
 			$links,
 			array(
-				'settings' => '<a href="' . admin_url( 'plugins.php?page=' . self::page_slug ) . '">' . __( 'Settings', self::page_slug ) . '</a>'
+				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . self::page_slug ) . '">' . __( 'Settings', self::page_slug ) . '</a>'
 			)
 		);
 	}
