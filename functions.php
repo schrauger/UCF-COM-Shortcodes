@@ -47,7 +47,7 @@ class ucf_com_shortcodes_settings {
 		add_action( 'admin_init', array( $this, 'page_init' ) );
 
 		// Add a link from the plugin page to this plugin's settings page
-		add_filter( 'plugin_action_links_' . plugin_basename( plugin_dir_path( __FILE__ ) . self::page_slug . '.php' ), 'plugin_action_links' );
+		add_filter( 'network_admin_plugin_action_links_' . plugin_basename( plugin_dir_path( __FILE__ ) . self::page_slug . '.php' ), 'network_admin_plugin_action_links' );
 
 		// Register the tinymce hooks to create buttons
 		add_filter( 'mce_external_plugins', array( $this, 'tinymce_brightcove_js' ) );
@@ -77,7 +77,7 @@ class ucf_com_shortcodes_settings {
 	 *
 	 * @return array
 	 */
-	public function plugin_action_links( $links ) {
+	public function network_admin_plugin_action_links( $links ) {
 		return array_merge(
 			array(
 				'settings' => '<a href="' . admin_url( 'plugins.php?page=' . self::page_slug ) . '">' . __( 'Settings', self::page_slug ) . '</a>'
