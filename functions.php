@@ -74,15 +74,16 @@ class ucf_com_shortcodes_settings {
 	 * Adds a link to this plugin's setting page directly on the WordPress plugin list page
 	 *
 	 * @param $links
+	 * @param $file
 	 *
 	 * @return array
 	 */
-	public function plugin_action_links( $links ) {
-		if ( strpos ( $file, self::page_slug) !== false) {
+	public function plugin_action_links( $links, $file ) {
+		if ( strpos ( $file, __FILE__) !== false) {
 			$links = array_merge(
 				$links,
 				array(
-					'settings' => '<a href="' . admin_url( 'options-general.php?page=' . self::page_slug ) . '">' . __( 'Settings', self::page_slug ) . '</a>'
+				    '<a href="options-general.php?page=' . self::page_slug . '">Settings ' . $file . '</a>'
 				)
 			);
 		}
