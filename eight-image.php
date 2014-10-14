@@ -40,8 +40,8 @@ for ( $i = 1; $i <= 8; $i += 2 ) {
 			} else {
 				?>
 				<div class="half double-box no-box" ></div >
-			<?
-			}php
+			<?php
+			}
 			?>
 		</div >
 	<?php
