@@ -99,7 +99,7 @@ class ucf_com_shortcodes_settings {
 	public function init_shortcodes() {
 		$this->_init_shortcodes( 'brightcove', array( $this, 'shortcode_brightcove_function' ) );
 		$this->_init_shortcodes( 'base_url', array( $this, 'shortcode_base_url_function' ) );
-		$this->_init_shortcodes( 'three_column', array( $this, 'shortcode_three_column_function' ) );
+		$this->_init_shortcodes( 'three_box', array( $this, 'shortcode_three_bar_function' ) );
 		$this->_init_shortcodes( 'eight_box', array( $this, 'shortcode_eight_box_function' ) );
 
 	}
@@ -320,15 +320,15 @@ class ucf_com_shortcodes_settings {
 	}
 
 	public function shortcode_eight_box_function() {
-		if ( '' !== get_field( 'eight_image_box_left_box_1_title' ) ) {
+		if ( '' !== get_field( 'eight_image_box_1_title' ) ) {
 			return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'eight-image.php' );
 		} else {
 			return '';
 		}
 	}
 
-	public function shortcode_three_column_function() {
-		if ( '' !== get_field( 'three_column_left_column_title' ) ) {
+	public function shortcode_three_bar_function() {
+		if ( '' !== get_field( 'left_item_title' ) ) {
 			return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'three-bar.php' );
 		} else {
 			return '';
