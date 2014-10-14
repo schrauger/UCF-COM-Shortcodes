@@ -53,6 +53,8 @@ class ucf_com_shortcodes_settings {
 		add_filter( 'mce_external_plugins', array( $this, 'tinymce_brightcove_js' ) );
 		add_filter( 'mce_css', array( $this, 'tinymce_brightcove_css' ) );
 		add_filter( 'mce_buttons', array( $this, 'tinymce_brightcove_button' ) );
+
+		$this->init_shortcodes();
 	}
 
 	/**
@@ -317,16 +319,41 @@ class ucf_com_shortcodes_settings {
 		return get_bloginfo( 'url' );
 	}
 
-	public function shortcode_eight_box_function( $attrs ) {
+	public function shortcode_eight_box_function() {
 		if ( '' !== get_field( 'eight_image_box_left_box_1_title' ) ) {
-			include( plugin_dir_path(__FILE__) . 'eight-image.php');
+			return $this->include_file_return_output( plugin_dir_path( __FILE__ ) . 'eight-image.php' );
+		} else {
+			return '';
 		}
 	}
 
-	public function shortcode_three_column_function( $attrs ) {
+	public function shortcode_three_column_function() {
 		if ( '' !== get_field( 'three_column_left_column_title' ) ) {
-			include( plugin_dir_path(__FILE__) . 'three-bar.php');
+			return $this->include_file_return_output( plugin_dir_path( __FILE__ ) . 'three-bar.php' );
+		} else {
+			return '';
 		}
+	}
+
+	/**
+	 * Includes a php file. If the php file prints or echos anything,
+	 * this function will prevent it from echoing out and will instead
+	 * return the entire echo contents inside a string.
+	 *
+	 * @param $file_path
+	 *
+	 * @return string
+	 */
+	public function include_file_return_output( $file_path ) {
+		ob_start(); // create a new buffer
+		chdir( dirname( $_SERVER[ 'SCRIPT_FILENAME' ] ) ); // apache may reset file paths when a new buffer is started. reset to current.
+		if ( ! empty( $file_path ) ) {
+			/** @noinspection PhpIncludeInspection */
+			include( $file_path );
+		}
+
+		$output = ob_get_clean(); // stop the buffer and get the contents that would have been echoed out.
+		return $output;
 	}
 
 	/**
