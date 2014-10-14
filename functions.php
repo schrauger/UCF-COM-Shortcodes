@@ -79,7 +79,7 @@ class ucf_com_shortcodes_settings {
 	 * @return array
 	 */
 	public function plugin_action_links( $links, $file ) {
-		if ( strpos ( __FILE__, $file ) !== false) {
+		if ( strpos( __FILE__, $file ) !== false ) {
 			$links = array_merge(
 				$links,
 				array(
@@ -87,6 +87,7 @@ class ucf_com_shortcodes_settings {
 				)
 			);
 		}
+
 		return $links;
 	}
 
@@ -95,7 +96,7 @@ class ucf_com_shortcodes_settings {
 	 */
 	public function init_shortcodes() {
 		$this->_init_shortcodes( 'brightcove', array( $this, 'shortcode_brightcove_function' ) );
-		$this->_init_shortcodes( 'shortcode', array( $this, 'shortcode_base_url_function' ) );
+		$this->_init_shortcodes( 'base_url', array( $this, 'shortcode_base_url_function' ) );
 
 	}
 
