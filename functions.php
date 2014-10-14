@@ -175,6 +175,13 @@ class ucf_com_shortcodes_settings {
 			self::page_slug
 		);
 
+		add_settings_section(
+			self::baseurl_section,
+			'Base URL (base_url)', // start of section text shown to user
+			array( $this, 'base_url_section_info' ),
+			self::page_slug
+		);
+
 		add_settings_field(
 			'brightcove_playerID',                      // ID used to identify the field throughout the theme
 			'PlayerID (deprecated)',                           // The label to the left of the option interface element
