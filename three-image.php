@@ -1,5 +1,5 @@
 <?php
-if ( ( NULL != the_field( 'left_item_title' ) ) || ( NULL != the_field( 'center_item_title' ) ) || ( NULL != the_field( 'right_item_title' ) ) ) {
+if ( ( NULL != get_field( 'left_item_title' ) ) || ( NULL != get_field( 'center_item_title' ) ) || ( NULL != get_field( 'right_item_title' ) ) ) {
 	$preview_l = wp_get_attachment_image_src( get_field( 'left_item_image' ), 'medium' );
 	$preview_c = wp_get_attachment_image_src( get_field( 'center_item_image' ), 'medium' );
 	$preview_r = wp_get_attachment_image_src( get_field( 'right_item_image' ), 'medium' );
