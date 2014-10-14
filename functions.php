@@ -321,7 +321,7 @@ class ucf_com_shortcodes_settings {
 
 	public function shortcode_eight_box_function() {
 		if ( '' !== get_field( 'eight_image_box_left_box_1_title' ) ) {
-			return $this->include_file_return_output( plugin_dir_path( __FILE__ ) . 'eight-image.php' );
+			return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'eight-image.php' );
 		} else {
 			return '';
 		}
@@ -329,10 +329,25 @@ class ucf_com_shortcodes_settings {
 
 	public function shortcode_three_column_function() {
 		if ( '' !== get_field( 'three_column_left_column_title' ) ) {
-			return $this->include_file_return_output( plugin_dir_path( __FILE__ ) . 'three-bar.php' );
+			return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'three-bar.php' );
 		} else {
 			return '';
 		}
+	}
+
+	/**
+	 * Includes a php file once. If the php file prints or echos anything,
+	 * this function will prevent it from echoing out and will instead
+	 * return the entire echo contents inside a string.
+	 * If called multiple times with the same file path, it will only
+	 * include the file the first time.
+	 *
+	 * @param $file_path
+	 *
+	 * @return string
+	 */
+	public function include_file_once_return_output( $file_path ) {
+		return $this->_include_file_return_output($file_path, true);
 	}
 
 	/**
@@ -345,11 +360,20 @@ class ucf_com_shortcodes_settings {
 	 * @return string
 	 */
 	public function include_file_return_output( $file_path ) {
+		return $this->_include_file_return_output($file_path, false);
+	}
+
+	private function _include_file_return_output( $file_path, $include_once = false){
 		ob_start(); // create a new buffer
 		chdir( dirname( $_SERVER[ 'SCRIPT_FILENAME' ] ) ); // apache may reset file paths when a new buffer is started. reset to current.
 		if ( ! empty( $file_path ) ) {
-			/** @noinspection PhpIncludeInspection */
-			include( $file_path );
+			if ($include_once) {
+				/** @noinspection PhpIncludeInspection */
+				include_once( $file_path ); // only include the first time the short code is used.
+			} else {
+				/** @noinspection PhpIncludeInspection */
+				include( $file_path ); // only include the first time the short code is used.
+			}
 		}
 
 		$output = ob_get_clean(); // stop the buffer and get the contents that would have been echoed out.
