@@ -99,7 +99,7 @@ class ucf_com_shortcodes_settings {
 	public function init_shortcodes() {
 		$this->_init_shortcodes( 'brightcove', array( $this, 'shortcode_brightcove_function' ) );
 		$this->_init_shortcodes( 'base_url', array( $this, 'shortcode_base_url_function' ) );
-		$this->_init_shortcodes( 'three_box', array( $this, 'shortcode_three_bar_function' ) );
+		$this->_init_shortcodes( 'three_bar', array( $this, 'shortcode_three_bar_function' ) );
 		$this->_init_shortcodes( 'eight_box', array( $this, 'shortcode_eight_box_function' ) );
 
 	}
