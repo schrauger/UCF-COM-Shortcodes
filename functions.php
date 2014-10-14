@@ -320,19 +320,11 @@ class ucf_com_shortcodes_settings {
 	}
 
 	public function shortcode_eight_box_function() {
-	//	if ( '' !== get_field( 'eight_image_box_left_box_1_title' ) ) {
-			return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'eight-image.php' );
-	//	} else {
-	//		return '';
-	//	}
+		return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'eight-image.php' );
 	}
 
 	public function shortcode_three_bar_function() {
-		if ( '' !== get_field( 'left_item_title' ) ) {
-			return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'three-bar.php' );
-		} else {
-			return '';
-		}
+		return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'three-bar.php' );
 	}
 
 	/**
@@ -347,7 +339,7 @@ class ucf_com_shortcodes_settings {
 	 * @return string
 	 */
 	public function include_file_once_return_output( $file_path ) {
-		return $this->_include_file_return_output($file_path, true);
+		return $this->_include_file_return_output( $file_path, true );
 	}
 
 	/**
@@ -360,14 +352,14 @@ class ucf_com_shortcodes_settings {
 	 * @return string
 	 */
 	public function include_file_return_output( $file_path ) {
-		return $this->_include_file_return_output($file_path, false);
+		return $this->_include_file_return_output( $file_path, false );
 	}
 
-	private function _include_file_return_output( $file_path, $include_once = false){
+	private function _include_file_return_output( $file_path, $include_once = false ) {
 		ob_start(); // create a new buffer
 		chdir( dirname( $_SERVER[ 'SCRIPT_FILENAME' ] ) ); // apache may reset file paths when a new buffer is started. reset to current.
 		if ( ! empty( $file_path ) ) {
-			if ($include_once) {
+			if ( $include_once ) {
 				/** @noinspection PhpIncludeInspection */
 				include_once( $file_path ); // only include the first time the short code is used.
 			} else {
