@@ -10,7 +10,7 @@ for ( $i = 1; $i <= 8; $i += 2 ) {
 		$image_right = $image_right[ 0 ];
 		?>
 		<div class="double-box-container" >
-			<?
+			<?php
 			// Left Image
 			if ( get_field( 'eight_image_box_' . $i . '_title' ) ) {
 				?>
@@ -20,11 +20,11 @@ for ( $i = 1; $i <= 8; $i += 2 ) {
 						<h2 ><?php the_field( 'eight_image_box_' . $i . '_title' ); ?></h2 >
 					</a >
 				</div >
-			<?
+			<?php
 			} else {
 				?>
 				<div class="half double-box no-box" ></div >
-			<?
+			<?php
 			}
 
 			// Right Image
@@ -36,15 +36,15 @@ for ( $i = 1; $i <= 8; $i += 2 ) {
 						<h2 ><?php the_field( 'eight_image_box_' . ( $i + 1 ) . '_title' ); ?></h2 >
 					</a >
 				</div >
-			<?
+			<?php
 			} else {
 				?>
 				<div class="half double-box no-box" ></div >
 			<?
-			}
+			}php
 			?>
 		</div >
-	<?
+	<?php
 	}
 }
 
