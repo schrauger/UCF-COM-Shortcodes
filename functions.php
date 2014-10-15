@@ -13,11 +13,11 @@ License: GPLv2 or later
  * Settings|config page for plugin
  */
 class ucf_com_shortcodes_settings {
-	private $brightcove_options;
+	//private $brightcove_options;
 	const brightcove_name    = 'brightcove';
 	const brightcove_section = 'brightcove_settings';
 
-	private $baseurl_options;
+	//private $baseurl_options;
 	const baseurl_name    = 'baseurl';
 	const baseurl_section = 'baseurl_settings';
 
@@ -142,8 +142,8 @@ class ucf_com_shortcodes_settings {
 	 */
 	public function create_settings_page() {
 		// Set class property
-		$this->brightcove_options = get_option( self::brightcove_name );
-		$this->baseurl_options    = get_option( self::baseurl_name );
+		//$this->brightcove_options = get_option( self::brightcove_name );
+		//$this->baseurl_options    = get_option( self::baseurl_name );
 		?>
 		<div class="wrap" >
 
