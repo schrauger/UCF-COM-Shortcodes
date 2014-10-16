@@ -13,11 +13,9 @@ License: GPLv2 or later
  * Settings|config page for plugin
  */
 class ucf_com_shortcodes_settings {
-	//private $brightcove_options;
 	const brightcove_name    = 'brightcove';
 	const brightcove_section = 'brightcove_settings';
 
-	//private $baseurl_options;
 	const baseurl_name    = 'baseurl';
 	const baseurl_section = 'baseurl_settings';
 
@@ -101,6 +99,7 @@ class ucf_com_shortcodes_settings {
 		$this->_init_shortcodes( 'base_url', array( $this, 'shortcode_base_url_function' ) );
 		$this->_init_shortcodes( 'three_box', array( $this, 'shortcode_three_box_function' ) );
 		$this->_init_shortcodes( 'eight_box', array( $this, 'shortcode_eight_box_function' ) );
+		$this->_init_shortcodes( 'two_column', array( $this, 'shortcode_two_column_function' ) );
 
 	}
 
@@ -141,9 +140,6 @@ class ucf_com_shortcodes_settings {
 	 * Tells WordPress how to output the page
 	 */
 	public function create_settings_page() {
-		// Set class property
-		//$this->brightcove_options = get_option( self::brightcove_name );
-		//$this->baseurl_options    = get_option( self::baseurl_name );
 		?>
 		<div class="wrap" >
 
@@ -325,6 +321,10 @@ class ucf_com_shortcodes_settings {
 
 	public function shortcode_three_box_function() {
 		return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'three-image.php' );
+	}
+
+	public function shortcode_two_column_function() {
+		return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'two-column.php' );
 	}
 
 	/**
