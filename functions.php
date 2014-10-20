@@ -19,11 +19,61 @@ class ucf_com_shortcodes_settings {
 	const baseurl_name    = 'baseurl';
 	const baseurl_section = 'baseurl_settings';
 
-	const page_title        = 'UCF COM Shortcode Settings';
+
+	const option_group_name = 'ucf-com-shortcodes-settings-group';
+	const page_title        = 'UCF COM Shortcode Settings'; //
 	const menu_title        = 'Shortcode Settings';
 	const capability        = 'manage_options'; // user capability required to view the page
 	const page_slug         = 'ucf-com-shortcodes-settings'; // unique page name, also called menu_slug
-	const option_group_name = 'ucf-com-shortcodes-settings-group';
+
+	private $shortcodes_wp_builtin = array(
+
+	);
+	private $shortcodes_plugin_defined = array(
+
+
+		/*
+		 * To add a new shortcode to the plugin, define it in the
+		 * array here, and define the function within this class
+		 * to determine the output/replacement text.
+		 */
+		/*array(
+			'name' => 'shortcode_tag_name', // user will enter [shortcode_tag_name] on page
+			'function' => 'shortcode_tag_name_function', // function to replace [shortcode_tag_name] with text
+			'uses_custom_fields' => false // if true, the plugin settings page will prompt the user to link to the group
+										  // of custom fields and let them choose conditions for showing the replacement.
+										  // ex if 3box, but user doesn't define any titles, don't show anything.
+		    'section' => 'settings_section' // name of the settings section, where the plugin config options show up.
+											// if not defined, will default to "{name}_settings"
+		),*/
+		array(
+			'name' => self::brightcove_name,
+		    'function' => 'shortcode_brightcove_function',
+		    'uses_custom_fields' => false,
+		    'section' => self::brightcove_section,
+		),
+		array(
+			'name' => self::baseurl_name,
+			'function' => 'shortcode_base_url_function',
+			'uses_custom_fields' => false,
+		    'section' => self::baseurl_section,
+		),
+		array(
+			'name' => 'three_box',
+			'function' => 'shortcode_three_box_function',
+			'uses_custom_fields' => true
+		),
+		array(
+			'name' => 'eight_box',
+			'function' => 'shortcode_eight_box_function',
+			'uses_custom_fields' => true
+		),
+		array(
+			'name' => 'two_column',
+			'function' => 'shortcode_two_column_function',
+			'uses_custom_fields' => true
+		),
+	);
 
 
 	public function __construct() {
@@ -95,11 +145,11 @@ class ucf_com_shortcodes_settings {
 	 * Calls all of the 'add_shortcode' api calls, after running duplication checks
 	 */
 	public function init_shortcodes() {
-		$this->_init_shortcodes( 'brightcove', array( $this, 'shortcode_brightcove_function' ) );
-		$this->_init_shortcodes( 'base_url', array( $this, 'shortcode_base_url_function' ) );
-		$this->_init_shortcodes( 'three_box', array( $this, 'shortcode_three_box_function' ) );
-		$this->_init_shortcodes( 'eight_box', array( $this, 'shortcode_eight_box_function' ) );
-		$this->_init_shortcodes( 'two_column', array( $this, 'shortcode_two_column_function' ) );
+		$brightcove = new brightcove_shortcode(self::page_slug, self::option_group_name);
+
+		foreach ($this->shortcodes_plugin_defined as $shortcode){
+			$this->_init_shortcodes($shortcode['name'], array($this, $shortcode['function']));
+		}
 
 	}
 
@@ -315,15 +365,15 @@ class ucf_com_shortcodes_settings {
 		return get_bloginfo( 'url' );
 	}
 
-	public function shortcode_eight_box_function() {
+	public function shortcode_eight_box_function($attrs) {
 		return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'eight-image.php' );
 	}
 
-	public function shortcode_three_box_function() {
+	public function shortcode_three_box_function($attrs) {
 		return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'three-image.php' );
 	}
 
-	public function shortcode_two_column_function() {
+	public function shortcode_two_column_function($attrs) {
 		return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'two-column.php' );
 	}
 
