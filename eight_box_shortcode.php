@@ -7,7 +7,7 @@
 class eight_box_shortcode extends com_shortcode {
 
 	const name          = 'eight_box'; // the text entered by the user (inside square brackets)
-	const section_name    = 'eight_box_settings'; //unique section id that organizes each setting
+	const section_name  = 'eight_box_settings'; //unique section id that organizes each setting
 	const section_title = 'Eight Box [eight_box]'; // Section header for this shortcode's settings
 
 	public function get_name() {
@@ -26,7 +26,7 @@ class eight_box_shortcode extends com_shortcode {
 		$this->add_setting_custom_fields_group();
 	}
 
-	public function replacement(array $attrs = null) {
+	public function replacement( array $attrs = null ) {
 		return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'eight-image.php' );
 	}
 } 
