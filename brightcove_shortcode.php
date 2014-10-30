@@ -8,13 +8,16 @@
  */
 class brightcove_shortcode extends com_shortcode {
 
-	const name          = 'brightcove'; // the text entered by the user (inside square brackets)
-	const section_name    = 'brightcove_settings'; //unique section id that organizes each setting
-	const section_title = 'Brightcove [brightcove]'; // Section header for this shortcode's settings
-	const player_id = 'ucf_com_brightcove_playerID';
-	const player_key = 'ucf_com_brightcove_playerKey';
-	const player_height = 'ucf_com_brightcove_default_height';
-	const player_width = 'ucf_com_brightcove_default_width';
+	const name                  = 'brightcove'; // the text entered by the user (inside square brackets)
+	const section_name          = 'brightcove_settings'; //unique section id that organizes each setting
+	const section_title         = 'Brightcove [brightcove]'; // Section header for this shortcode's settings
+	const player_id             = 'ucf_com_brightcove_playerID';
+	const player_key            = 'ucf_com_brightcove_playerKey';
+	const tinymce_video_id      = 'id';
+	const player_height_default = 'ucf_com_brightcove_default_height';
+	const tinymce_video_height  = 'height';
+	const player_width_default  = 'ucf_com_brightcove_default_width';
+	const tinymce_video_width   = 'width';
 
 	public function get_name() {
 		return self::name;
@@ -44,19 +47,27 @@ class brightcove_shortcode extends com_shortcode {
 			'PlayerKey',
 			'PlayerKey as defined by your Brightcove account.'
 		);
+
+		$this->add_setting_tinymce_input( self::tinymce_video_id, 'Video ID' );
+
 		$this->add_setting(
-			self::player_height,
+			self::player_height_default,
 			'Default height',
 			'Default video height (in pixels)'
 		);
+		$this->add_setting_tinymce_input( self::tinymce_video_height, 'Height' );
+
 		$this->add_setting(
-			self::player_width,
+			self::player_width_default,
 			'Default width',
 			'Default video width (in pixels)'
 		);
+		$this->add_setting_tinymce_input( self::tinymce_video_width, 'Width' );
+
+		$this->add_setting_tinymce_label( 'size_note', 'Leave height/width blank for default' );
 	}
 
-	public function replacement(array $attrs = null) {
+	public function replacement( array $attrs = null ) {
 		return '<div style="display:none"></div>
 
 				<script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
@@ -66,12 +77,12 @@ class brightcove_shortcode extends com_shortcode {
 				  <param name="bgcolor" value="#FFFFFF" />
 				  <param name="playerID" value="' . get_option( self::player_id ) . '" />
 				  <param name="playerKey" value="' . get_option( self::player_key ) . '" />
-				  <param name="height" value="' . ( ( $attrs[ 'height' ] ) ? $attrs[ 'height' ] : get_option( self::player_height ) ) . '" />
-				  <param name="width" value="' . ( ( $attrs[ 'width' ] ) ? $attrs[ 'width' ] : get_option( self::player_width ) ) . '" />
+				  <param name="height" value="' . ( ( $attrs[ self::tinymce_video_height ] ) ? $attrs[ self::tinymce_video_height ] : get_option( self::player_height_default ) ) . '" />
+				  <param name="width" value="' . ( ( $attrs[ self::tinymce_video_width ] ) ? $attrs[ self::tinymce_video_width ] : get_option( self::player_width_default ) ) . '" />
 				  <param name="isVid" value="true" />
 				  <param name="isUI" value="true" />
 				  <param name="dynamicStreaming" value="true" />
-				  <param name="@videoPlayer" value="' . $attrs[ 'id' ] . '" />
+				  <param name="@videoPlayer" value="' . $attrs[ self::tinymce_video_id ] . '" />
 				</object>
 
 				<script type="text/javascript">brightcove.createExperiences();</script>';

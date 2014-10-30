@@ -8,45 +8,58 @@
  */
 abstract class com_shortcode {
 
-	const prefix            = 'ucf_com_shortcodes:'; // prefix for generic names to make sure they are unique. colons are acceptable and help visibly when viewing the database manually.
+	const prefix = 'ucf_com_shortcodes:'; // prefix for generic names to make sure they are unique. colons are acceptable and help visibly when viewing the database manually.
 
+	protected $page_slug                   = 'ucf-com-shortcodes-settings'; // unique page name, also called menu_slug
+	protected $option_group_name           = 'ucf-com-shortcodes-settings-group'; //all ucf com shortcodes will fall into this group. then we call settings_fields(option_group_name) to get all ucf com shortcodes' settings
+	private   $requires_custom_field_group = false; // If true, this will not add the shortcode unless the custom field is defined on the page. do not allow children to set this manually.
+	private   $tinymce_settings            = array(); // When using add_setting(), this will become an array of settings to show in the tinymce popup.
 
-	protected $page_slug         = 'ucf-com-shortcodes-settings'; // unique page name, also called menu_slug
-	protected $option_group_name = 'ucf-com-shortcodes-settings-group'; //all ucf com shortcodes will fall into this group. then we call settings_fields(option_group_name) to get all ucf com shortcodes' settings
-	private $requires_custom_field_group = false; // If true, this will not add the shortcode unless the custom field is defined on the page. do not allow children to set this manually.
-
-	public function __construct($page_slug = null, $option_group_name = null){
-		if ($page_slug){
+	public function __construct( $page_slug = null, $option_group_name = null ) {
+		if ( $page_slug ) {
 			$this->page_slug = $page_slug;
 		}
-		if ($option_group_name){
+		if ( $option_group_name ) {
 			$this->option_group_name = $option_group_name;
 		}
+		$this->init_shortcode();
 	}
 
-	public function init_shortcodes(){
-		$this->add_settings_section();
-		add_action( 'admin_init', array( $this, 'page_init' ) );
+	/**
+	 * Adds the shortcode to WordPress (if not defined), and adds the
+	 * appropriate settings for the plugin settings page.
+	 * Also defines the tinymce settings (but those must be
+	 * placed into an array for all shortcode class objects, then wp_localize_script
+	 * so that the single javascript file has access to the data)
+	 */
+	public function init_shortcode() {
+		if ( ! ( shortcode_exists( $this->get_name() ) ) ) {
+			add_shortcode( $this->get_name(), $this->replacement() );
+			$this->add_settings_section();
+			$this->add_settings();
+		}
 	}
 
 	/**
 	 * Database key which stores the serialized options for this specific shortcode.
 	 * @return string
 	 */
-	public function get_option_database_key(){
+	public function get_option_database_key() {
 		return self::prefix . $this->get_name(); // database serialized array of settings. just reuse the shortcode name (doesn't have to be that way, though)
 	}
 
 	/**
 	 * Grabs the database value for the $settings_id option. The value is stored in a serialized array in the database.
 	 * It returns the value after sanitizing it.
+	 *
 	 * @param $settings_id
 	 *
 	 * @return string|void
 	 */
-	public function get_database_settings_value($settings_id){
-		$data = get_option($this->get_option_database_key());
-		return esc_attr($data[$settings_id]);
+	public function get_database_settings_value( $settings_id ) {
+		$data = get_option( $this->get_option_database_key() );
+
+		return esc_attr( $data[ $settings_id ] );
 	}
 
 	/**
@@ -108,9 +121,67 @@ abstract class com_shortcode {
 			         'id'      => $setting_id, // copy/paste id here
 			         'label'   => $setting_label,
 			         'section' => $this->get_section_name(),
-			         'value'   => get_database_settings_value($setting_id)
+			         'value'   => get_database_settings_value( $setting_id )
 			)
 		);
+
+	}
+
+	/**
+	 * Adds the required javascript so that these options will be presented to the user when clicking on
+	 * the shortcode within tinymce. It will show a popup with textboxes they can fill out.
+	 *
+	 * @param string $key_name
+	 * @param string $key_label
+	 * @param string $input_type
+	 */
+	public function add_setting_tinymce_input( string $key_name, string $key_label, string $input_type = 'textbox' ) {
+		array_push( $this->tinymce_settings, array(
+			'type'  => $input_type,
+			'name'  => $key_name,
+			'label' => $key_label
+		) );
+	}
+
+	public function add_setting_tinymce_label( string $key_name, string $key_text ) {
+		array_push( $this->tinymce_settings, array(
+			'type' => 'label',
+			'name' => $key_name,
+			'text' => $key_text
+		) );
+	}
+
+	public function add_setting_tinymce_custom( array $attributes ) {
+		array_push( $this->tinymce_settings, $attributes );
+	}
+
+	/**
+	 * Returns a string with a javascript formatted array for tinymce. If this shortcode hasn't
+	 * defined any tiny_mce inputs or labels, this function will return null.
+	 * @return null|string
+	 */
+	public function get_tinymce_parameters_formatted() {
+		if ( $this->tinymce_settings ) {
+
+			$return_string = '[';
+			foreach ( $this->tinymce_settings as $tinymce_setting ) {
+				$return_string = $return_string + '{' + implode( ',', $tinymce_setting ) + '}, ';
+				// the menu should look like (example) "[ {name: asdf, title: fdsa}, {name: asdf, label: wwww}, ]"
+			}
+			$return_string = $return_string + ']';
+			return $return_string;
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * Returns an array of objects to be used with tinymce. If this shortcode hasn't
+	 * defined any tiny_mce inputs or labels, this function will return null.
+	 * @return null|string
+	 */
+	public function get_tinymce_parameters() {
+		return $this->tinymce_settings;
 	}
 
 	/**
@@ -140,7 +211,9 @@ abstract class com_shortcode {
 	}
 
 	/**
-	 * Creates the HTML code that is printed for each input on the UCF COM Shortcodes options page under this shortcode's section.
+	 * Creates the HTML code that is printed for each input on the UCF COM Shortcodes options page under this
+	 * shortcode's section.
+	 *
 	 * @param $args
 	 */
 	public function shortcodes_input_text( $args ) {
@@ -154,6 +227,51 @@ abstract class com_shortcode {
 		// Here, we will take the first argument of the array and add it to a label next to the input
 		$html .= '<label for="' . $args[ 'id' ] . '"> ' . $args[ 'label' ] . '</label>';
 		echo $html;
+	}
+
+	/**
+	 * Includes a php file once. If the php file prints or echos anything,
+	 * this function will prevent it from echoing out and will instead
+	 * return the entire echo contents inside a string.
+	 * If called multiple times with the same file path, it will only
+	 * include the file the first time.
+	 *
+	 * @param $file_path
+	 *
+	 * @return string
+	 */
+	public function include_file_once_return_output( $file_path ) {
+		return $this->_include_file_return_output( $file_path, true );
+	}
+
+	/**
+	 * Includes a php file. If the php file prints or echos anything,
+	 * this function will prevent it from echoing out and will instead
+	 * return the entire echo contents inside a string.
+	 *
+	 * @param $file_path
+	 *
+	 * @return string
+	 */
+	public function include_file_return_output( $file_path ) {
+		return $this->_include_file_return_output( $file_path, false );
+	}
+
+	private function _include_file_return_output( $file_path, $include_once = false ) {
+		ob_start(); // create a new buffer
+		chdir( dirname( $_SERVER[ 'SCRIPT_FILENAME' ] ) ); // apache may reset file paths when a new buffer is started. reset to current.
+		if ( ! empty( $file_path ) ) {
+			if ( $include_once ) {
+				/** @noinspection PhpIncludeInspection */
+				include_once( $file_path ); // only include the first time the short code is used.
+			} else {
+				/** @noinspection PhpIncludeInspection */
+				include( $file_path ); // only include the first time the short code is used.
+			}
+		}
+
+		$output = ob_get_clean(); // stop the buffer and get the contents that would have been echoed out.
+		return $output;
 	}
 
 	/**
@@ -175,8 +293,6 @@ abstract class com_shortcode {
 	abstract public function get_section_title();
 
 
-
-
 	/**
 	 * Return (do not echo) the text/html that will replace the inline shortcode.
 	 *
@@ -187,5 +303,11 @@ abstract class com_shortcode {
 	 * @return string Must RETURN the output. Do not echo the output in this function.
 	 */
 	abstract public function replacement( array $attrs = null );
+
+	/**
+	 * Place all of your add_setting calls here.
+	 *
+	 */
+	abstract public function add_settings();
 }
 
