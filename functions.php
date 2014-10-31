@@ -60,7 +60,6 @@ class ucf_com_shortcodes_settings {
 		add_filter( 'mce_css', array( $this, 'tinymce_brightcove_css' ) );
 		add_filter( 'mce_buttons', array( $this, 'tinymce_brightcove_button' ) );
 
-		self::get_shortcodes();
 	}
 
 	/**
@@ -130,6 +129,10 @@ class ucf_com_shortcodes_settings {
 				'create_settings_page'
 			) // since we are putting settings on our own page, we also have to define how to print out the settings
 		);
+	}
+
+	public function page_init(){
+		self::get_shortcodes();
 	}
 
 	/**
