@@ -1,5 +1,5 @@
 <?php
-
+require_once('com_shortcode.php');
 /**
  * Created by PhpStorm.
  * User: stephen

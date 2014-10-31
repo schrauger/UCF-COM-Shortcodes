@@ -1,4 +1,9 @@
 <?php
+require_once('base_url_shortcode.php');
+require_once('brightcove_shortcode.php');
+require_once('eight_box_shortcode.php');
+require_once('three_box_shortcode.php');
+require_once('two_column_shortcode.php');
 /*
  Plugin Name: UCF COM Shortcodes
 Plugin URI: https://github.com/medweb/UCF-COM-Shortcodes
