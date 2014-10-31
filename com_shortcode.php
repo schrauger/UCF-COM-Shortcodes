@@ -45,7 +45,7 @@ abstract class com_shortcode {
 	 * @return string
 	 */
 	public function get_option_database_key() {
-		return self::prefix . $this->get_name(); // database serialized array of settings. just reuse the shortcode name (doesn't have to be that way, though)
+		return $this->get_section_name(); // database serialized array of settings. just reuse the shortcode name (doesn't have to be that way, though)
 	}
 
 	/**
@@ -57,8 +57,9 @@ abstract class com_shortcode {
 	 * @return string|void
 	 */
 	public function get_database_settings_value( $settings_id ) {
-		$data = get_option( $this->get_option_database_key() );
+		$data = get_option( $this->get_section_name() );
 
+echo esc_attr( $data[ $settings_id ] );
 		return esc_attr( $data[ $settings_id ] );
 	}
 
@@ -70,7 +71,7 @@ abstract class com_shortcode {
 
 		register_setting(
 			$this->option_group_name,
-			$this->get_option_database_key,
+			$this->get_option_database_key(),
 			array( $this, 'sanitize' ) // sanitize function
 		);
 
@@ -194,7 +195,7 @@ abstract class com_shortcode {
 			$this->requires_custom_field_group = true;
 
 			$this->add_setting(
-				'ucf_com_' . $this->get_name() . '_custom_field',
+				self::prefix . $this->get_name() . '_custom_field',
 				'Custom Field Group ID',
 				'The ID of the custom fields\' group. The shortcode will only be replaced if this group is added to the page in the Custom Fields settings, and if specific Custom Fields within that group are properly set by the user.'
 			);
