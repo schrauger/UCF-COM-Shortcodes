@@ -107,7 +107,7 @@ abstract class com_shortcode {
 	 * @param string $setting_description Optional - A description of the input.
 	 * @param string $setting_label       Optional - A text label (<label> element) linked to the input.
 	 */
-	public function add_setting( string $setting_id, $setting_description = "", $setting_label = "" ) {
+	public function add_setting( $setting_id, $setting_description = "", $setting_label = "" ) {
 		add_settings_field(
 			$setting_id,                      // ID used to identify the field throughout the theme
 			$setting_description,                           // The label to the left of the option interface element
