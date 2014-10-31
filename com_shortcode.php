@@ -58,8 +58,6 @@ abstract class com_shortcode {
 	 */
 	public function get_database_settings_value( $settings_id ) {
 		$data = get_option( $this->get_section_name() );
-
-echo esc_attr( $data[ $settings_id ] );
 		return esc_attr( $data[ $settings_id ] );
 	}
 
@@ -71,8 +69,8 @@ echo esc_attr( $data[ $settings_id ] );
 
 		register_setting(
 			$this->option_group_name,
-			$this->get_option_database_key(),
-			array( $this, 'sanitize' ) // sanitize function
+			$this->get_option_database_key()
+			//array( $this, 'sanitize' ) // sanitize function
 		);
 
 		add_settings_section(
