@@ -121,7 +121,7 @@ abstract class com_shortcode {
 			         'id'      => $setting_id, // copy/paste id here
 			         'label'   => $setting_label,
 			         'section' => $this->get_section_name(),
-			         'value'   => get_database_settings_value( $setting_id )
+			         'value'   => $this->get_database_settings_value( $setting_id )
 			)
 		);
 
