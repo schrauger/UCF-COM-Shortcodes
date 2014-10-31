@@ -135,7 +135,7 @@ abstract class com_shortcode {
 	 * @param string $key_label
 	 * @param string $input_type
 	 */
-	public function add_setting_tinymce_input( string $key_name, string $key_label, $input_type = 'textbox' ) {
+	public function add_setting_tinymce_input( $key_name, $key_label, $input_type = 'textbox' ) {
 		array_push( $this->tinymce_settings, array(
 			'type'  => $input_type,
 			'name'  => $key_name,
@@ -143,7 +143,7 @@ abstract class com_shortcode {
 		) );
 	}
 
-	public function add_setting_tinymce_label( string $key_name, string $key_text ) {
+	public function add_setting_tinymce_label( $key_name, $key_text ) {
 		array_push( $this->tinymce_settings, array(
 			'type' => 'label',
 			'name' => $key_name,
