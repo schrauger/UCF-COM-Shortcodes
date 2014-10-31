@@ -95,7 +95,7 @@ abstract class com_shortcode {
 	 * @return mixed
 	 */
 	public function print_section_description() {
-		echo '<p>Set the defaults for the [' . $this->get_section_name() . '] shortcode</p>';
+		echo '<p>Set the defaults for the [' . $this->get_name() . '] shortcode</p>';
 	}
 
 	/**
