@@ -159,7 +159,7 @@ abstract class com_shortcode {
 	 * defined any tiny_mce inputs or labels, this function will return null.
 	 * @return null|string
 	 */
-	public function get_tinymce_parameters_formatted() {
+	public function get_tinymce_menu_parameters_formatted() {
 		if ( $this->tinymce_settings ) {
 
 			$return_string = '[';
@@ -179,8 +179,23 @@ abstract class com_shortcode {
 	 * defined any tiny_mce inputs or labels, this function will return null.
 	 * @return null|string
 	 */
-	public function get_tinymce_parameters() {
+	public function get_tinymce_menu_parameters() {
 		return $this->tinymce_settings;
+	}
+
+	/**
+	 * Returns a javascript formatted object for use with tinymce.
+	 * @return string
+	 */
+	public function get_tinymce_javascript_string() {
+		$return_string = '
+		{
+		  title: "' . $this->get_section_title() . '",
+		  name: "' . $this->get_name() . '",
+		  parameters: "' . $this->get_tinymce_menu_parameters_formatted() . '"
+		}
+		';
+		return $return_string;
 	}
 
 	/**

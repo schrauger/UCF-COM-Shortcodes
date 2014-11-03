@@ -1,9 +1,9 @@
 <?php
-require_once('base_url_shortcode.php');
-require_once('brightcove_shortcode.php');
-require_once('eight_box_shortcode.php');
-require_once('three_box_shortcode.php');
-require_once('two_column_shortcode.php');
+require_once( 'base_url_shortcode.php' );
+require_once( 'brightcove_shortcode.php' );
+require_once( 'eight_box_shortcode.php' );
+require_once( 'three_box_shortcode.php' );
+require_once( 'two_column_shortcode.php' );
 /*
  Plugin Name: UCF COM Shortcodes
 Plugin URI: https://github.com/medweb/UCF-COM-Shortcodes
@@ -31,8 +31,11 @@ class ucf_com_shortcodes_settings {
 	const capability        = 'manage_options'; // user capability required to view the page
 	const page_slug         = 'ucf-com-shortcodes-settings'; // unique page name, also called menu_slug
 
-	private $shortcodes_wp_builtin = array();
+	const javascript_handle = 'ucf_com_shortcodes_js'; // just a unique handle for WordPress
+	const javascript_var    = 'ucf_com_shortcodes_tinymce'; // global javascript variable that holds tinymce menu structure
 
+	private $shortcodes_wp_builtin = array();
+	private $shortcodes_ucf_com    = array();
 
 	public function __construct() {
 		register_activation_hook( __FILE__, array(
@@ -131,8 +134,8 @@ class ucf_com_shortcodes_settings {
 		);
 	}
 
-	public function page_init(){
-		self::get_shortcodes();
+	public function page_init() {
+		$this->$shortcodes_ucf_com = self::get_shortcodes();
 	}
 
 	/**
@@ -165,7 +168,17 @@ class ucf_com_shortcodes_settings {
 	 * @return mixed
 	 */
 	public function tinymce_brightcove_js( $plugin_array ) {
-		$plugin_array[ 'ucf_com_brightcove' ] = plugins_url( '/plugin.js.php', __FILE__ ); // include the javascript for the button, located inside the current plugin folder
+
+		/**
+		 * Send the dynamic javascript code to plugin.js so that it can create menu structures for tinymce.
+		 */
+		wp_register_script( self::javascript_handle, plugins_url( 'dummy.js' ) ); // use dummy.js so that we don't include plugin.js twice (avoid duplicate functions)
+		wp_localize_script( self::javascript_handle, self::javascript_var, $this->tinymce_array() );
+
+		/**
+		 * Include plugin.js in the tinymce way (which doesn't use wp_register_script but rather uses its own function)
+		 */
+		$plugin_array[ 'ucf_com_brightcove' ] = plugins_url( '/plugin.js', __FILE__ ); // include the javascript for the button, located inside the current plugin folder
 		return $plugin_array;
 	}
 
@@ -197,5 +210,23 @@ class ucf_com_shortcodes_settings {
 		return $buttons;
 	}
 
+	/**
+	 * Returns the full javascript array of shortcode settings for tinymce
+	 * @return string
+	 */
+	public function tinymce_array() {
+		$return_string = '[ ';
+		foreach ( $this->$shortcodes_ucf_com as $shortcode ) {
+			/** @var $shortcode com_shortcode */
+			$tinymce_string = $shortcode->get_tinymce_parameters_formatted();
+
+			$return_string = $return_string . $shortcode->get_tinymce_javascript_string() . ', ';
+		}
+		$return_string = $return_string . ']';
+
+		return $return_string;
+	}
+
 }
+
 new ucf_com_shortcodes_settings();
