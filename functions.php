@@ -218,8 +218,6 @@ class ucf_com_shortcodes_settings {
 		$return_string = '[ ';
 		foreach ( $this->shortcodes_ucf_com as $shortcode ) {
 			/** @var $shortcode com_shortcode */
-			$tinymce_string = $shortcode->get_tinymce_parameters_formatted();
-
 			$return_string = $return_string . $shortcode->get_tinymce_javascript_string() . ', ';
 		}
 		$return_string = $return_string . ']';
