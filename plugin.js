@@ -6,9 +6,11 @@
             title: 'Custom UCF Shortcodes',
             text: 'Shortcodes',
             icon: false,
+            type: 'menubutton',
             menu: [
                 {
                     text: 'Brightcove',
+                    icon: 'icon dashicons-format-video', // video icon
                     onclick: function () {
                         // Open window
                         editor.windowManager.open({
@@ -48,24 +50,28 @@
                 },
                 {
                     text: 'Eight Box',
+                    icon: 'icon dashicons-format-image', // video icon
                     onclick: function(){
                         editor.insertContent('[eight_box]');
                     }
                 },
                 {
                     text: 'Three Box',
+                    icon: 'icon dashicons-format-image', // video icon
                     onclick: function(){
                         editor.insertContent('[three_box]');
                     }
                 },
                 {
                     text: 'Two Column',
+                    icon: 'icon dashicons-welcome-widgets-menus', // video icon
                     onclick: function(){
                         editor.insertContent('[two_column]');
                     }
                 },
                 {
                     text: 'Base URL',
+                    icon: 'icon dashicons-wordpress', // video icon
                     onclick: function(){
                         editor.insertContent('[base_url]');
                     }
