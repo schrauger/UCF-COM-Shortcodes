@@ -38,7 +38,7 @@ abstract class com_shortcode {
 	 */
 	public function init_shortcode() {
 		if ( ! ( shortcode_exists( $this->get_name() ) ) ) {
-			add_shortcode( $this->get_name(), $this->replacement() );
+			add_shortcode( $this->get_name(), array($this, 'replacement' ));
 		}
 	}
 
