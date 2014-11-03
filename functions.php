@@ -18,12 +18,6 @@ License: GPLv2 or later
  * Settings|config page for plugin
  */
 class ucf_com_shortcodes_settings {
-	const brightcove_name    = 'brightcove';
-	const brightcove_section = 'brightcove_settings';
-
-	const baseurl_name    = 'baseurl';
-	const baseurl_section = 'baseurl_settings';
-
 
 	const option_group_name = 'ucf-com-shortcodes-settings-group';
 	const page_title        = 'UCF COM Shortcode Settings'; //
@@ -59,9 +53,9 @@ class ucf_com_shortcodes_settings {
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_action_links' ), 10, 2 );
 
 		// Register the tinymce hooks to create buttons
-		add_filter( 'mce_external_plugins', array( $this, 'tinymce_brightcove_js' ) );
-		add_filter( 'mce_css', array( $this, 'tinymce_brightcove_css' ) );
-		add_filter( 'mce_buttons', array( $this, 'tinymce_brightcove_button' ) );
+		add_filter( 'mce_external_plugins', array( $this, 'tinymce_shortcodes_js' ) );
+		add_filter( 'mce_css', array( $this, 'tinymce_shortcodes_css' ) );
+		add_filter( 'mce_buttons', array( $this, 'tinymce_shortcodes_button' ) );
 
 	}
 
@@ -167,7 +161,7 @@ class ucf_com_shortcodes_settings {
 	 *
 	 * @return mixed
 	 */
-	public function tinymce_brightcove_js( $plugin_array ) {
+	public function tinymce_shortcodes_js( $plugin_array ) {
 
 		/**
 		 * Send the dynamic javascript code to plugin.js so that it can create menu structures for tinymce.
@@ -179,7 +173,7 @@ class ucf_com_shortcodes_settings {
 		/**
 		 * Include plugin.js in the tinymce way (which doesn't use wp_register_script but rather uses its own function)
 		 */
-		$plugin_array[ 'ucf_com_brightcove' ] = plugins_url( '/plugin.js', __FILE__ ); // include the javascript for the button, located inside the current plugin folder
+		$plugin_array[ 'ucf_com_shortcodes' ] = plugins_url( '/plugin.js', __FILE__ ); // include the javascript for the button, located inside the current plugin folder
 		return $plugin_array;
 	}
 
@@ -190,9 +184,9 @@ class ucf_com_shortcodes_settings {
 	 *
 	 * @return mixed
 	 */
-	public function tinymce_brightcove_css( $mce_css ) {
-		wp_register_style( 'ucf_com_brightcove_css_file', plugins_url( 'style.css', __FILE__ ) );
-		wp_enqueue_style( 'ucf_com_brightcove_css_file' );
+	public function tinymce_shortcodes_css( $mce_css ) {
+		wp_register_style( 'ucf_com_shortcodes_css_file', plugins_url( 'style.css', __FILE__ ) );
+		wp_enqueue_style( 'ucf_com_shortcodes_css_file' );
 
 		return $mce_css;
 
@@ -205,8 +199,8 @@ class ucf_com_shortcodes_settings {
 	 *
 	 * @return mixed
 	 */
-	public function tinymce_brightcove_button( $buttons ) {
-		array_push( $buttons, 'separator', 'ucf_com_brightcove_key' );
+	public function tinymce_shortcodes_button( $buttons ) {
+		array_push( $buttons, 'separator', 'ucf_com_shortcodes_key' );
 
 		return $buttons;
 	}
