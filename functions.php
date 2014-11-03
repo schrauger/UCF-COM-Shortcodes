@@ -172,7 +172,8 @@ class ucf_com_shortcodes_settings {
 		/**
 		 * Send the dynamic javascript code to plugin.js so that it can create menu structures for tinymce.
 		 */
-		wp_register_script( self::javascript_handle, plugins_url( 'dummy.js' ) ); // use dummy.js so that we don't include plugin.js twice (avoid duplicate functions)
+		wp_register_script( self::javascript_handle, plugins_url( 'dummy.js', __FILE__ ) ); // use dummy.js so that we don't include plugin.js twice (avoid duplicate functions)
+		wp_enqueue_script(self::javascript_handle);
 		wp_localize_script( self::javascript_handle, self::javascript_var, $this->tinymce_array() );
 
 		/**
