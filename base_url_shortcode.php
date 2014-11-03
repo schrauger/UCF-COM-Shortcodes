@@ -33,4 +33,5 @@ class base_url_shortcode extends com_shortcode {
 
 		return get_bloginfo( 'url' );
 	}
+
 } 

@@ -29,4 +29,5 @@ class two_column_shortcode extends com_shortcode {
 	public function replacement( array $attrs = null ) {
 		return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'two-column.php' );
 	}
+
 } 

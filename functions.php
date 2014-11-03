@@ -25,8 +25,8 @@ class ucf_com_shortcodes_settings {
 	const capability        = 'manage_options'; // user capability required to view the page
 	const page_slug         = 'ucf-com-shortcodes-settings'; // unique page name, also called menu_slug
 
-	const javascript_handle = 'ucf_com_shortcodes_js'; // just a unique handle for WordPress
-	const javascript_var    = 'ucf_com_shortcodes_tinymce'; // global javascript variable that holds tinymce menu structure
+/*	const javascript_handle = 'ucf_com_shortcodes_js'; // just a unique handle for WordPress
+	const javascript_var    = 'ucf_com_shortcodes_tinymce'; // global javascript variable that holds tinymce menu structure*/
 
 	private $shortcodes_wp_builtin = array();
 	private $shortcodes_ucf_com    = array();
@@ -166,14 +166,14 @@ class ucf_com_shortcodes_settings {
 		/**
 		 * Send the dynamic javascript code to plugin.js so that it can create menu structures for tinymce.
 		 */
-		wp_register_script( self::javascript_handle, plugins_url( 'dummy.js', __FILE__ ) ); // use dummy.js so that we don't include plugin.js twice (avoid duplicate functions)
+/*		wp_register_script( self::javascript_handle, plugins_url( 'dummy.js', __FILE__ ) ); // use dummy.js so that we don't include plugin.js twice (avoid duplicate functions)
 		wp_enqueue_script(self::javascript_handle);
-		wp_localize_script( self::javascript_handle, self::javascript_var, $this->tinymce_array() );
+		wp_localize_script( self::javascript_handle, self::javascript_var, $this->tinymce_array() );*/
 
 		/**
 		 * Include plugin.js in the tinymce way (which doesn't use wp_register_script but rather uses its own function)
 		 */
-		$plugin_array[ 'ucf_com_shortcodes' ] = plugins_url( '/plugin.js', __FILE__ ); // include the javascript for the button, located inside the current plugin folder
+		$plugin_array[ 'ucf_com_shortcodes_js_file' ] = plugins_url( '/plugin.js', __FILE__ ); // include the javascript for the button, located inside the current plugin folder
 		return $plugin_array;
 	}
 

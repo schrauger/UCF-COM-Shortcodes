@@ -10,6 +10,7 @@ class three_box_shortcode extends com_shortcode {
 	const section_name  = 'three_box_settings'; //unique section id that organizes each setting
 	const section_title = 'Three Box [three_box]'; // Section header for this shortcode's settings
 
+
 	public function get_name() {
 		return self::name;
 	}
@@ -29,4 +30,5 @@ class three_box_shortcode extends com_shortcode {
 	public function replacement( array $attrs = null ) {
 		return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'three-image.php' );
 	}
+
 } 

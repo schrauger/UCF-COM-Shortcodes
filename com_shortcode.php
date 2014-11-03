@@ -15,6 +15,7 @@ abstract class com_shortcode {
 	private   $requires_custom_field_group = false; // If true, this will not add the shortcode unless the custom field is defined on the page. do not allow children to set this manually.
 	private   $tinymce_settings            = array(); // When using add_setting(), this will become an array of settings to show in the tinymce popup.
 
+
 	public function __construct( $page_slug = null, $option_group_name = null ) {
 		if ( $page_slug ) {
 			$this->page_slug = $page_slug;
@@ -323,5 +324,6 @@ abstract class com_shortcode {
 	 *
 	 */
 	abstract public function add_settings();
+
 }
 

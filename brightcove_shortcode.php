@@ -1,5 +1,6 @@
 <?php
-require_once('com_shortcode.php');
+require_once( 'com_shortcode.php' );
+
 /**
  * Created by PhpStorm.
  * User: stephen
@@ -19,6 +20,7 @@ class brightcove_shortcode extends com_shortcode {
 	const player_width_default  = 'ucf_com_brightcove_default_width';
 	const tinymce_video_width   = 'width';
 
+
 	public function get_name() {
 		return self::name;
 	}
@@ -26,6 +28,8 @@ class brightcove_shortcode extends com_shortcode {
 	public function get_section_name() {
 		return self::section_name;
 	}
+
+
 
 	public function get_section_title() {
 		return self::section_title;
