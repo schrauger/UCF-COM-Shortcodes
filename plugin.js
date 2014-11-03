@@ -9,6 +9,7 @@
             type: 'menubutton',
             menu: [
                 {
+                    title: 'Brightcove Videos',
                     text: 'Brightcove',
                     icon: 'icon dashicons-format-video', // video icon
                     onclick: function () {
@@ -49,6 +50,7 @@
                     }
                 },
                 {
+                    title: 'Eight Box image layout',
                     text: 'Eight Box',
                     icon: 'icon dashicons-format-image', // video icon
                     onclick: function(){
@@ -56,6 +58,7 @@
                     }
                 },
                 {
+                    title: 'Three Box image layout',
                     text: 'Three Box',
                     icon: 'icon dashicons-format-image', // video icon
                     onclick: function(){
@@ -63,6 +66,7 @@
                     }
                 },
                 {
+                    title: 'Two columns, side by side',
                     text: 'Two Column',
                     icon: 'icon dashicons-welcome-widgets-menus', // video icon
                     onclick: function(){
@@ -70,6 +74,7 @@
                     }
                 },
                 {
+                    title: 'Domain portion of URL',
                     text: 'Base URL',
                     icon: 'icon dashicons-wordpress', // video icon
                     onclick: function(){

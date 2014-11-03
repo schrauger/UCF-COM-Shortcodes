@@ -47,7 +47,8 @@ class ucf_com_shortcodes_settings {
 
 		// Register the 'settings' page
 		add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
-		add_action( 'admin_init', array( $this, 'page_init' ) );
+		add_action( 'admin_init', array( $this, 'admin_init' ) );
+		add_action( 'init', array($this, 'page_init'));
 
 		// Add a link from the plugin page to this plugin's settings page
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_action_links' ), 10, 2 );
@@ -128,8 +129,18 @@ class ucf_com_shortcodes_settings {
 		);
 	}
 
+	public function admin_init() {
+		$this->shortcodes_ucf_com = self::get_shortcodes();
+		foreach ($this->shortcodes_ucf_com as $shortcode){
+			$shortcode->init_shortcode_settings();
+		}
+	}
+
 	public function page_init() {
 		$this->shortcodes_ucf_com = self::get_shortcodes();
+		foreach ($this->shortcodes_ucf_com as $shortcode){
+			$shortcode->init_shortcode();
+		}
 	}
 
 	/**
@@ -166,9 +177,8 @@ class ucf_com_shortcodes_settings {
 		/**
 		 * Send the dynamic javascript code to plugin.js so that it can create menu structures for tinymce.
 		 */
-/*		wp_register_script( self::javascript_handle, plugins_url( 'dummy.js', __FILE__ ) ); // use dummy.js so that we don't include plugin.js twice (avoid duplicate functions)
-		wp_enqueue_script(self::javascript_handle);
-		wp_localize_script( self::javascript_handle, self::javascript_var, $this->tinymce_array() );*/
+		wp_register_script( self::javascript_handle, plugins_url( 'dummy.js', __FILE__ ) ); // use dummy.js so that we don't include plugin.js twice (avoid duplicate functions)
+		wp_localize_script( self::javascript_handle, self::javascript_var, "hello" );
 
 		/**
 		 * Include plugin.js in the tinymce way (which doesn't use wp_register_script but rather uses its own function)

@@ -23,15 +23,18 @@ abstract class com_shortcode {
 		if ( $option_group_name ) {
 			$this->option_group_name = $option_group_name;
 		}
-		$this->init_shortcode();
 	}
 
 	/**
-	 * Adds the shortcode to WordPress (if not defined), and adds the
-	 * appropriate settings for the plugin settings page.
-	 * Also defines the tinymce settings (but those must be
-	 * placed into an array for all shortcode class objects, then wp_localize_script
-	 * so that the single javascript file has access to the data)
+	 * Adds the appropriate settings for the plugin settings page.
+	 */
+	public function init_shortcode_settings() {
+		$this->add_settings_section();
+		$this->add_settings();
+	}
+
+	/**
+	 * Adds the shortcode to WordPress (if not defined),
 	 */
 	public function init_shortcode() {
 		if ( ! ( shortcode_exists( $this->get_name() ) ) ) {
@@ -40,6 +43,7 @@ abstract class com_shortcode {
 			$this->add_settings();
 		}
 	}
+
 
 	/**
 	 * Database key which stores the serialized options for this specific shortcode.
@@ -59,6 +63,7 @@ abstract class com_shortcode {
 	 */
 	public function get_database_settings_value( $settings_id ) {
 		$data = get_option( $this->get_section_name() );
+
 		return esc_attr( $data[ $settings_id ] );
 	}
 
@@ -71,7 +76,7 @@ abstract class com_shortcode {
 		register_setting(
 			$this->option_group_name,
 			$this->get_option_database_key()
-			//array( $this, 'sanitize' ) // sanitize function
+		//array( $this, 'sanitize' ) // sanitize function
 		);
 
 		add_settings_section(
@@ -169,6 +174,7 @@ abstract class com_shortcode {
 				// the menu should look like (example) "[ {name: asdf, title: fdsa}, {name: asdf, label: wwww}, ]"
 			}
 			$return_string = $return_string + ']';
+
 			return $return_string;
 		} else {
 			return null;
@@ -196,6 +202,7 @@ abstract class com_shortcode {
 		  parameters: "' . $this->get_tinymce_menu_parameters_formatted() . '"
 		}
 		';
+
 		return $return_string;
 	}
 
