@@ -135,7 +135,7 @@ class ucf_com_shortcodes_settings {
 	}
 
 	public function page_init() {
-		$this->$shortcodes_ucf_com = self::get_shortcodes();
+		$this->shortcodes_ucf_com = self::get_shortcodes();
 	}
 
 	/**
