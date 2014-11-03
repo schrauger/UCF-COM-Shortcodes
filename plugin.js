@@ -1,5 +1,5 @@
 (function () {
-    tinymce.PluginManager.add('ucf_com_shortcodes_key', function (editor, url) {
+    tinymce.PluginManager.add('ucf_com_shortcodes_key', function (editor, url){
 
         // Add a button that opens a window
         editor.addButton('ucf_com_shortcodes_key', {
@@ -48,26 +48,34 @@
                 },
                 {
                     text: 'Eight Box',
-                    onclick: editor.insertContent('[eight_box]')
+                    onclick: function(){
+                        editor.insertContent('[eight_box]');
+                    }
                 },
                 {
                     text: 'Three Box',
-                    onclick: editor.insertContent('[three_box]')
+                    onclick: function(){
+                        editor.insertContent('[three_box]');
+                    }
                 },
                 {
                     text: 'Two Column',
-                    onclick: editor.insertContent('[two_column]')
+                    onclick: function(){
+                        editor.insertContent('[two_column]');
+                    }
                 },
                 {
                     text: 'Base URL',
-                    onclick: editor.insertContent('[base_url]')
+                    onclick: function(){
+                        editor.insertContent('[base_url]');
+                    }
                 }
             ]
 
 
         });
 
-    })();
+    });
 
 
-});
+})();
