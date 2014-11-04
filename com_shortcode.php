@@ -143,7 +143,6 @@ abstract class com_shortcode {
 	 * @param string $input_type
 	 */
 	public function add_setting_tinymce_input( $key_name, $key_label, $input_type = 'textbox' ) {
-		$this->plugin_settings_exist = true; // if user adds a setting, set to true so that a section is created.
 		array_push( $this->tinymce_settings, array(
 			'type'  => $input_type,
 			'name'  => $key_name,
@@ -152,7 +151,6 @@ abstract class com_shortcode {
 	}
 
 	public function add_setting_tinymce_label( $key_name, $key_text ) {
-		$this->plugin_settings_exist = true; // if user adds a setting, set to true so that a section is created.
 		array_push( $this->tinymce_settings, array(
 			'type' => 'label',
 			'name' => $key_name,
@@ -161,7 +159,6 @@ abstract class com_shortcode {
 	}
 
 	public function add_setting_tinymce_custom( array $attributes ) {
-		$this->plugin_settings_exist = true; // if user adds a setting, set to true so that a section is created.
 		array_push( $this->tinymce_settings, $attributes );
 	}
 
