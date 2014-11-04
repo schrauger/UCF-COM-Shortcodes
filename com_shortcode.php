@@ -217,7 +217,6 @@ abstract class com_shortcode {
 	 */
 	public function add_setting_custom_fields_group() {
 		if ( ! ( $this->requires_custom_field_group ) ) {
-//			$this->plugin_settings_exist = true; // if user adds a setting, set to true so that a section is created.
 			// only add these settings once, even if the programmer calls this function multiple times.
 			$this->requires_custom_field_group = true;
 
