@@ -213,11 +213,11 @@ abstract class com_shortcode {
 			// only add these settings once, even if the programmer calls this function multiple times.
 			$this->requires_custom_field_group = true;
 
-			$this->add_setting(
+			/*$this->add_setting(
 				self::prefix . $this->get_name() . '_custom_field',
 				'Custom Field Group ID',
 				'The ID of the custom fields\' group. The shortcode will only be replaced if this group is added to the page in the Custom Fields settings, and if specific Custom Fields within that group are properly set by the user.'
-			);
+			);*/
 		}
 	}
 
