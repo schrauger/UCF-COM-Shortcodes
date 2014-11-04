@@ -14,7 +14,7 @@ abstract class com_shortcode {
 	protected $option_group_name           = 'ucf-com-shortcodes-settings-group'; //all ucf com shortcodes will fall into this group. then we call settings_fields(option_group_name) to get all ucf com shortcodes' settings
 	private   $requires_custom_field_group = false; // If true, this will not add the shortcode unless the custom field is defined on the page. do not allow children to set this manually.
 	private   $tinymce_settings            = array(); // When using add_setting(), this will become an array of settings to show in the tinymce popup.
-
+	protected   $plugin_settings_exist       = false; // If true, create a section header.
 
 	public function __construct( $page_slug = null, $option_group_name = null ) {
 		if ( $page_slug ) {
@@ -29,8 +29,10 @@ abstract class com_shortcode {
 	 * Adds the appropriate settings for the plugin settings page.
 	 */
 	public function init_shortcode_settings() {
-		$this->add_settings_section();
 		$this->add_settings();
+		if ($this->plugin_settings_exist) {
+			$this->add_settings_section();
+		}
 	}
 
 	/**
@@ -111,6 +113,8 @@ abstract class com_shortcode {
 	 * @param string $setting_label       Optional - A text label (<label> element) linked to the input.
 	 */
 	public function add_setting( $setting_id, $setting_description = "", $setting_label = "" ) {
+		$this->plugin_settings_exist = true; // if user adds a setting, set to true so that a section is created.
+
 		add_settings_field(
 			$setting_id,                      // ID used to identify the field throughout the theme
 			$setting_description,                           // The label to the left of the option interface element
@@ -139,6 +143,7 @@ abstract class com_shortcode {
 	 * @param string $input_type
 	 */
 	public function add_setting_tinymce_input( $key_name, $key_label, $input_type = 'textbox' ) {
+		$this->plugin_settings_exist = true; // if user adds a setting, set to true so that a section is created.
 		array_push( $this->tinymce_settings, array(
 			'type'  => $input_type,
 			'name'  => $key_name,
@@ -147,6 +152,7 @@ abstract class com_shortcode {
 	}
 
 	public function add_setting_tinymce_label( $key_name, $key_text ) {
+		$this->plugin_settings_exist = true; // if user adds a setting, set to true so that a section is created.
 		array_push( $this->tinymce_settings, array(
 			'type' => 'label',
 			'name' => $key_name,
@@ -155,6 +161,7 @@ abstract class com_shortcode {
 	}
 
 	public function add_setting_tinymce_custom( array $attributes ) {
+		$this->plugin_settings_exist = true; // if user adds a setting, set to true so that a section is created.
 		array_push( $this->tinymce_settings, $attributes );
 	}
 
@@ -210,6 +217,7 @@ abstract class com_shortcode {
 	 */
 	public function add_setting_custom_fields_group() {
 		if ( ! ( $this->requires_custom_field_group ) ) {
+			$this->plugin_settings_exist = true; // if user adds a setting, set to true so that a section is created.
 			// only add these settings once, even if the programmer calls this function multiple times.
 			$this->requires_custom_field_group = true;
 
