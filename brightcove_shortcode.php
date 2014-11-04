@@ -71,7 +71,7 @@ class brightcove_shortcode extends com_shortcode {
 		$this->add_setting_tinymce_label( 'size_note', 'Leave height/width blank for default' );
 	}
 
-	public function replacement( array $attrs = null ) {
+	public function replacement( $attrs = null ) {
 		return '<div style="display:none"></div>
 
 				<script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>

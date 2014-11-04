@@ -25,8 +25,8 @@ class ucf_com_shortcodes_settings {
 	const capability        = 'manage_options'; // user capability required to view the page
 	const page_slug         = 'ucf-com-shortcodes-settings'; // unique page name, also called menu_slug
 
-/*	const javascript_handle = 'ucf_com_shortcodes_js'; // just a unique handle for WordPress
-	const javascript_var    = 'ucf_com_shortcodes_tinymce'; // global javascript variable that holds tinymce menu structure*/
+	/*	const javascript_handle = 'ucf_com_shortcodes_js'; // just a unique handle for WordPress
+		const javascript_var    = 'ucf_com_shortcodes_tinymce'; // global javascript variable that holds tinymce menu structure*/
 
 	private $shortcodes_wp_builtin = array();
 	private $shortcodes_ucf_com    = array();
@@ -48,7 +48,7 @@ class ucf_com_shortcodes_settings {
 		// Register the 'settings' page
 		add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
-		add_action( 'init', array($this, 'page_init'));
+		add_action( 'init', array( $this, 'page_init' ) );
 
 		// Add a link from the plugin page to this plugin's settings page
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_action_links' ), 10, 2 );
@@ -131,14 +131,14 @@ class ucf_com_shortcodes_settings {
 
 	public function admin_init() {
 		$this->shortcodes_ucf_com = self::get_shortcodes();
-		foreach ($this->shortcodes_ucf_com as $shortcode){
+		foreach ( $this->shortcodes_ucf_com as $shortcode ) {
 			$shortcode->init_shortcode_settings();
 		}
 	}
 
 	public function page_init() {
 		$this->shortcodes_ucf_com = self::get_shortcodes();
-		foreach ($this->shortcodes_ucf_com as $shortcode){
+		foreach ( $this->shortcodes_ucf_com as $shortcode ) {
 			$shortcode->init_shortcode();
 		}
 	}

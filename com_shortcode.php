@@ -326,7 +326,7 @@ abstract class com_shortcode {
 	 *
 	 * @return string Must RETURN the output. Do not echo the output in this function.
 	 */
-	abstract public function replacement( array $attrs = null );
+	abstract public function replacement(); // cannot require $attributes here, because 1: WordPress doesn't always send attributes, and 2: php cannot declare an abstract function with an optional parameter
 
 	/**
 	 * Place all of your add_setting calls here.

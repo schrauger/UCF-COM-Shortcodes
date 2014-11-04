@@ -27,7 +27,7 @@ class three_box_shortcode extends com_shortcode {
 		$this->add_setting_custom_fields_group();
 	}
 
-	public function replacement( array $attrs = null ) {
+	public function replacement( $attrs = null ) {
 		return $this->include_file_once_return_output( plugin_dir_path( __FILE__ ) . 'three-image.php' );
 	}
 

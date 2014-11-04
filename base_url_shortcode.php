@@ -26,7 +26,7 @@ class base_url_shortcode extends com_shortcode {
 		$this->add_setting_custom_fields_group();
 	}
 
-	public function replacement( array $attrs = null ) {
+	public function replacement( $attrs = null ) {
 		extract( shortcode_atts( array(
 			                         'attribute' => 'default parameter'
 		                         ), $attrs ) );
