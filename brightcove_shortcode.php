@@ -19,6 +19,8 @@ class brightcove_shortcode extends com_shortcode {
 	const tinymce_video_height  = 'height';
 	const player_width_default  = 'ucf_com_brightcove_default_width';
 	const tinymce_video_width   = 'width';
+	const player_float_default  = 'ucf_com_brightcove_default_float';
+	const tinymce_video_float   = 'float';
 
 
 	public function get_name() {
@@ -68,7 +70,14 @@ class brightcove_shortcode extends com_shortcode {
 		);
 		$this->add_setting_tinymce_input( self::tinymce_video_width, 'Width' );
 
-		$this->add_setting_tinymce_label( 'size_note', 'Leave height/width blank for default' );
+		$this->add_setting(
+			self::player_float_default,
+			'Default Float',
+			'Default video float (left, right, auto)'
+		);
+		$this->add_setting_tinymce_input( self::tinymce_video_width, 'Float' );
+
+		$this->add_setting_tinymce_label( 'size_note', 'Video ID is required. Other fields are optional.' );
 	}
 
 	public function replacement( $attrs = null ) {
@@ -76,7 +85,7 @@ class brightcove_shortcode extends com_shortcode {
 
 				<script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
 
-				<object id="myExperience' . $attrs[ 'id' ] . '" class="BrightcoveExperience ' . $attrs[ 'float' ] . '">
+				<object id="myExperience' . $attrs[ self::tinymce_video_id ] . '" class="BrightcoveExperience ' . ( ( $attrs[ self::tinymce_video_float ] ) ? $attrs[ self::tinymce_video_float ] : $this->get_database_settings_value( self::player_float_default ) ) . '">
 				  <param name="wmode" value="transparent">
 				  <param name="bgcolor" value="#FFFFFF" />
 				  <param name="playerID" value="' . $this->get_database_settings_value( self::player_id ) . '" />
