@@ -54,30 +54,30 @@ class brightcove_shortcode extends com_shortcode {
 			'PlayerKey as defined by your Brightcove account.'
 		);
 
-		$this->add_setting_tinymce_input( self::tinymce_video_id, 'Video ID' );
+/*		$this->add_setting_tinymce_input( self::tinymce_video_id, 'Video ID' );*/
 
 		$this->add_setting(
 			self::player_height_default,
 			'Default height',
 			'Default video height (in pixels)'
 		);
-		$this->add_setting_tinymce_input( self::tinymce_video_height, 'Height' );
+/*		$this->add_setting_tinymce_input( self::tinymce_video_height, 'Height' );*/
 
 		$this->add_setting(
 			self::player_width_default,
 			'Default width',
 			'Default video width (in pixels)'
 		);
-		$this->add_setting_tinymce_input( self::tinymce_video_width, 'Width' );
+/*		$this->add_setting_tinymce_input( self::tinymce_video_width, 'Width' );*/
 
 		$this->add_setting(
 			self::player_float_default,
 			'Default Float',
 			'Default video float (left, right, auto)'
 		);
-		$this->add_setting_tinymce_input( self::tinymce_video_width, 'Float' );
+/*		$this->add_setting_tinymce_input( self::tinymce_video_width, 'Float' );*/
 
-		$this->add_setting_tinymce_label( 'size_note', 'Video ID is required. Other fields are optional.' );
+/*		$this->add_setting_tinymce_label( 'size_note', 'Video ID is required. Other fields are optional.' );*/
 	}
 
 	public function replacement( $attrs = null ) {

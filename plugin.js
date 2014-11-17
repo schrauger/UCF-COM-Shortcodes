@@ -33,9 +33,14 @@
                                     label: 'Height'
                                 },
                                 {
+                                    type: 'textbox',
+                                    name: 'float',
+                                    label: 'Float'
+                                },
+                                {
                                     type: 'label',
                                     name: 'size_note',
-                                    text: 'Leave height/width blank for default'
+                                    text: 'Video ID is required. Other fields are optional.'
                                 }
                             ],
                             onsubmit: function (e) {
