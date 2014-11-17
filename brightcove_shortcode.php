@@ -79,10 +79,10 @@ class brightcove_shortcode extends com_shortcode {
 				<object id="myExperience' . $attrs[ 'id' ] . '" class="BrightcoveExperience ' . $attrs[ 'float' ] . '">
 				  <param name="wmode" value="transparent">
 				  <param name="bgcolor" value="#FFFFFF" />
-				  <param name="playerID" value="' . get_option( self::player_id ) . '" />
-				  <param name="playerKey" value="' . get_option( self::player_key ) . '" />
-				  <param name="height" value="' . ( ( $attrs[ self::tinymce_video_height ] ) ? $attrs[ self::tinymce_video_height ] : get_option( self::player_height_default ) ) . '" />
-				  <param name="width" value="' . ( ( $attrs[ self::tinymce_video_width ] ) ? $attrs[ self::tinymce_video_width ] : get_option( self::player_width_default ) ) . '" />
+				  <param name="playerID" value="' . $this->get_database_settings_value( self::player_id ) . '" />
+				  <param name="playerKey" value="' . $this->get_database_settings_value( self::player_key ) . '" />
+				  <param name="height" value="' . ( ( $attrs[ self::tinymce_video_height ] ) ? $attrs[ self::tinymce_video_height ] : $this->get_database_settings_value( self::player_height_default ) ) . '" />
+				  <param name="width" value="' . ( ( $attrs[ self::tinymce_video_width ] ) ? $attrs[ self::tinymce_video_width ] : $this->get_database_settings_value( self::player_width_default ) ) . '" />
 				  <param name="isVid" value="true" />
 				  <param name="isUI" value="true" />
 				  <param name="dynamicStreaming" value="true" />
