@@ -97,7 +97,7 @@ class brightcove_shortcode extends com_shortcode {
 		return '<div style="display:none;"></div>
 
 				<script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
-				<div class="brightcove_'. ( ( $attrs[ self::player_video_alignment ] ) ? $attrs[ self::player_video_alignment ] : $this->get_database_settings_value( self::player_alignment_default ) ) . '"
+				<div class="align'. ( ( $attrs[ self::player_video_alignment ] ) ? $attrs[ self::player_video_alignment ] : $this->get_database_settings_value( self::player_alignment_default ) ) . '"
 						style="width:' .  ( ( $attrs[ self::tinymce_video_width ] ) ? $attrs[ self::tinymce_video_width ] : $this->get_database_settings_value( self::player_width_default ) ) . 'px" >
 					<object id="myExperience' . $attrs[ self::tinymce_video_id ] . '" class="BrightcoveExperience ' . ( ( $attrs[ self::tinymce_video_float ] ) ? $attrs[ self::tinymce_video_float ] : $this->get_database_settings_value( self::player_float_default ) ) . '">
 					  <param name="wmode" value="transparent">
