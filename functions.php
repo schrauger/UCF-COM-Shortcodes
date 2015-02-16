@@ -195,9 +195,9 @@ class ucf_com_shortcodes_settings {
 	 * @return mixed
 	 */
 	public function tinymce_shortcodes_css( $mce_css ) {
-		wp_register_style( 'ucf_com_shortcodes_css_file', plugins_url( 'style.css', __FILE__ ) );
-		wp_enqueue_style( 'ucf_com_shortcodes_css_file' );
-
+		//wp_register_style( 'ucf_com_shortcodes_css_file', plugins_url( 'style.css', __FILE__ ) );
+		//wp_enqueue_style( 'ucf_com_shortcodes_css_file' );
+		$mce_css['ucf_com_shortcodes_css_file'] = plugins_url( 'style.css', __FILE__);
 		return $mce_css;
 
 	}
