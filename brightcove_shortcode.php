@@ -19,6 +19,8 @@ class brightcove_shortcode extends com_shortcode {
 	const tinymce_video_height  = 'height';
 	const player_width_default  = 'ucf_com_brightcove_default_width';
 	const tinymce_video_width   = 'width';
+    const player_alignment_default = 'ucf_com_brightcove_default_alignment';
+	const player_video_alignment = 'alignment';
 	const player_float_default  = 'ucf_com_brightcove_default_float';
 	const tinymce_video_float   = 'float';
 
@@ -71,9 +73,15 @@ class brightcove_shortcode extends com_shortcode {
 /*		$this->add_setting_tinymce_input( self::tinymce_video_width, 'Width' );*/
 
 		$this->add_setting(
+			self::player_alignment_default,
+			'Alignment',
+			'Default video alignment (left, right, center)'
+		);
+
+		$this->add_setting(
 			self::player_float_default,
-			'Default Float',
-			'Default video float (left, right, auto)'
+			'Deprecated - Default Float',
+			'Default video float (left, right, auto). Kept for historical videos; use Alignment instead.'
 		);
 /*		$this->add_setting_tinymce_input( self::tinymce_video_width, 'Float' );*/
 
@@ -81,23 +89,24 @@ class brightcove_shortcode extends com_shortcode {
 	}
 
 	public function replacement( $attrs = null ) {
-		return '<div style="display:none"></div>
+		return '<div style="display:none;"></div>
 
 				<script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
-
-				<object id="myExperience' . $attrs[ self::tinymce_video_id ] . '" class="BrightcoveExperience ' . ( ( $attrs[ self::tinymce_video_float ] ) ? $attrs[ self::tinymce_video_float ] : $this->get_database_settings_value( self::player_float_default ) ) . '">
-				  <param name="wmode" value="transparent">
-				  <param name="bgcolor" value="#FFFFFF" />
-				  <param name="playerID" value="' . $this->get_database_settings_value( self::player_id ) . '" />
-				  <param name="playerKey" value="' . $this->get_database_settings_value( self::player_key ) . '" />
-				  <param name="height" value="' . ( ( $attrs[ self::tinymce_video_height ] ) ? $attrs[ self::tinymce_video_height ] : $this->get_database_settings_value( self::player_height_default ) ) . '" />
-				  <param name="width" value="' . ( ( $attrs[ self::tinymce_video_width ] ) ? $attrs[ self::tinymce_video_width ] : $this->get_database_settings_value( self::player_width_default ) ) . '" />
-				  <param name="isVid" value="true" />
-				  <param name="isUI" value="true" />
-				  <param name="dynamicStreaming" value="true" />
-				  <param name="@videoPlayer" value="' . $attrs[ self::tinymce_video_id ] . '" />
-				</object>
-
+				<div class="brightcove_'. ( ( $attrs[ self::player_video_alignment ] ) ? $attrs[ self::player_video_alignment ] : $this->get_database_settings_value( self::player_alignment_default ) ) . '"
+						style="width=\'' .  ( ( $attrs[ self::tinymce_video_width ] ) ? $attrs[ self::tinymce_video_width ] : $this->get_database_settings_value( self::player_width_default ) ) . '\' >
+					<object id="myExperience' . $attrs[ self::tinymce_video_id ] . '" class="BrightcoveExperience ' . ( ( $attrs[ self::tinymce_video_float ] ) ? $attrs[ self::tinymce_video_float ] : $this->get_database_settings_value( self::player_float_default ) ) . '">
+					  <param name="wmode" value="transparent">
+					  <param name="bgcolor" value="#FFFFFF" />
+					  <param name="playerID" value="' . $this->get_database_settings_value( self::player_id ) . '" />
+					  <param name="playerKey" value="' . $this->get_database_settings_value( self::player_key ) . '" />
+					  <param name="height" value="' . ( ( $attrs[ self::tinymce_video_height ] ) ? $attrs[ self::tinymce_video_height ] : $this->get_database_settings_value( self::player_height_default ) ) . '" />
+					  <param name="width" value="' . ( ( $attrs[ self::tinymce_video_width ] ) ? $attrs[ self::tinymce_video_width ] : $this->get_database_settings_value( self::player_width_default ) ) . '" />
+					  <param name="isVid" value="true" />
+					  <param name="isUI" value="true" />
+					  <param name="dynamicStreaming" value="true" />
+					  <param name="@videoPlayer" value="' . $attrs[ self::tinymce_video_id ] . '" />
+					</object>
+				</div>
 				<script type="text/javascript">brightcove.createExperiences();</script>';
 	}
 } 

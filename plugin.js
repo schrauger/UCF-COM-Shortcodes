@@ -34,6 +34,11 @@
                                 },
                                 {
                                     type: 'textbox',
+                                    name: 'alignment',
+                                    label: 'Alignment'
+                                },
+                                {
+                                    type: 'textbox',
                                     name: 'float',
                                     label: 'Float'
                                 },
@@ -48,6 +53,8 @@
                                 editor.insertContent('[brightcove id=' + e.data.id +
                                 ((e.data.width) ? ' width=' + e.data.width : '') +
                                 ((e.data.height) ? ' height=' + e.data.height : '') +
+                                ((e.data.alignment) ? ' alignment=' + e.data.alignment : '' ) +
+                                ((e.data.float) ? ' float=' + e.data.float : '' ) +
                                 ']');
                             }
 
