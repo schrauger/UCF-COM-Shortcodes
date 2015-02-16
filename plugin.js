@@ -35,12 +35,12 @@
                                 {
                                     type: 'textbox',
                                     name: 'alignment',
-                                    label: 'Alignment'
+                                    label: 'Alignment (left, right, center)'
                                 },
                                 {
                                     type: 'textbox',
                                     name: 'float',
-                                    label: 'Float'
+                                    label: 'Float (deprecated)'
                                 },
                                 {
                                     type: 'label',
