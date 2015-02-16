@@ -37,11 +37,20 @@ abstract class com_shortcode {
 
 	/**
 	 * Adds the shortcode to WordPress (if not defined),
+	 * Also adds a css file, if defined.
+	 * Currently does not check that it is a valid css file, but it does ensure the file exists.
+	 * Ergo, if you decide to code 'xyz.php' as the css filename, it will try to enqueue it. Not sure
+	 * what WordPress will do in that case.
 	 */
 	public function init_shortcode() {
 		if ( ! ( shortcode_exists( $this->get_name() ) ) ) {
 			add_shortcode( $this->get_name(), array($this, 'replacement' ));
+			if (($this->get_css()) && (file_exists(plugin_dir_path(__FILE__) . $this->get_css()))) {
+				wp_register_style( 'ucf_com_shortcodes_css_file_' . $this->get_name(), plugins_url( $this->get_css(), __FILE__ ) );
+				wp_enqueue_style( 'ucf_com_shortcodes_css_file_' . $this->get_name() );
+			}
 		}
+
 	}
 
 
@@ -303,6 +312,12 @@ abstract class com_shortcode {
 	 * @return string
 	 */
 	abstract public function get_name();
+
+	/**
+	 * Returns the css filename. It can easily return an empty string, if no css is needed.
+	 * @return mixed
+	 */
+	abstract public function get_css();
 
 	/**
 	 * Returns the Section unique id for this shortcode's settings

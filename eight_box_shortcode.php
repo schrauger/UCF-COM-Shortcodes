@@ -14,6 +14,10 @@ class eight_box_shortcode extends com_shortcode {
 		return self::name;
 	}
 
+	public function get_css() {
+		return '';
+	}
+
 	public function get_section_name() {
 		return self::section_name;
 	}

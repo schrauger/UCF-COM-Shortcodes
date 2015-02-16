@@ -201,7 +201,7 @@ class ucf_com_shortcodes_settings {
 		if ( ! empty( $mce_css ) )
 			$mce_css .= ',';
 
-		$mce_css .= plugins_url( 'style.css', __FILE__ );
+		$mce_css .= plugins_url( 'brightcove.css', __FILE__ );
 
 		return $mce_css;
 

@@ -12,6 +12,9 @@ class brightcove_shortcode extends com_shortcode {
 	const name                  = 'brightcove'; // the text entered by the user (inside square brackets)
 	const section_name          = 'brightcove_settings'; //unique section id that organizes each setting
 	const section_title         = 'Brightcove [brightcove]'; // Section header for this shortcode's settings
+
+	const plugin_css_file  = 'brightcove.css';
+
 	const player_id             = 'ucf_com_brightcove_playerID';
 	const player_key            = 'ucf_com_brightcove_playerKey';
 	const tinymce_video_id      = 'id';
@@ -29,11 +32,13 @@ class brightcove_shortcode extends com_shortcode {
 		return self::name;
 	}
 
+	public function get_css() {
+		return self::plugin_css_file;
+	}
+
 	public function get_section_name() {
 		return self::section_name;
 	}
-
-
 
 	public function get_section_title() {
 		return self::section_title;
