@@ -34,13 +34,8 @@
                                 },
                                 {
                                     type: 'textbox',
-                                    name: 'alignment',
+                                    name: 'float', // called float for historical reasons; doesn't actually use float for center
                                     label: 'Alignment (left, right, center)'
-                                },
-                                {
-                                    type: 'textbox',
-                                    name: 'float',
-                                    label: 'Float (deprecated)'
                                 },
                                 {
                                     type: 'label',
@@ -53,7 +48,6 @@
                                 editor.insertContent('[brightcove id=' + e.data.id +
                                 ((e.data.width) ? ' width=' + e.data.width : '') +
                                 ((e.data.height) ? ' height=' + e.data.height : '') +
-                                ((e.data.alignment) ? ' alignment=' + e.data.alignment : '' ) +
                                 ((e.data.float) ? ' float=' + e.data.float : '' ) +
                                 ']');
                             }
