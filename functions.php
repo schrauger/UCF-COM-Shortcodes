@@ -49,7 +49,7 @@ class ucf_com_shortcodes_settings {
 		// Register the 'settings' page
 		if (is_network_admin()) {
 			add_action( 'network_admin_menu', array( $this, 'add_plugin_page' ) );
-			add_action( 'network_admin_edit_' . self::option_network_group_name,  );
+			add_action( 'network_admin_edit_' . self::option_network_group_name, array( $this, 'save_network_options')  );
 		} else {
 			add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
 		}
@@ -195,6 +195,9 @@ class ucf_com_shortcodes_settings {
 	<?php
 	}
 
+	public function save_network_options(){
+		print_r($_REQUEST);
+	}
 
 	/**
 	 * Include this plugin's javascript file.
