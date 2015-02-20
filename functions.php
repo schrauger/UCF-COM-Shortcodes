@@ -48,6 +48,8 @@ class ucf_com_shortcodes_settings {
 		// Register the 'settings' page
 		add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
+		add_action( 'network_admin_menu', array( $this, 'add_plugin_page' ) );
+		add_action( 'network_admin_init', array( $this, 'admin_init' ) );
 		add_action( 'init', array( $this, 'page_init' ) );
 
 		// Add a link from the plugin page to this plugin's settings page
