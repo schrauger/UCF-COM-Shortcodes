@@ -73,8 +73,14 @@ abstract class com_shortcode {
 	public function get_database_settings_value( $settings_id ) {
 		$data = get_option( $this->get_section_name() );
 		$value = esc_attr( $data[ $settings_id ] );
-		if (is_multisite() && (!($value))){
-			// no site-specific value. load the value from network setting page
+		if (is_multisite() &&
+		    (
+		        (!($value))
+		    ||
+		        (is_network_admin())
+		    )
+		){
+			// no site-specific value (or this is the network admin page). load the value from network setting page
 			$data = get_site_option( $this->get_section_name() );
 			$value = esc_attr( $data[ $settings_id ] );
 		}
