@@ -50,7 +50,6 @@ class ucf_com_shortcodes_settings {
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		if (is_multisite()) {
 			add_action( 'network_admin_menu', array( $this, 'add_plugin_page' ) );
-			add_action( 'network_admin_init', array( $this, 'admin_init' ) );
 		}
 		add_action( 'init', array( $this, 'page_init' ) );
 
