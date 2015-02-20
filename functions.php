@@ -20,7 +20,7 @@ License: GPLv2 or later
 class ucf_com_shortcodes_settings {
 
 	const option_group_name = 'ucf-com-shortcodes-settings-group';
-	const option_network_group_name = 'ucf-com-shortcodes-settings-group-network';
+	//const option_network_group_name = 'ucf-com-shortcodes-settings-group-network';
 	const page_title        = 'UCF COM Shortcode Settings'; //
 	const menu_title        = 'Shortcode Settings';
 	const capability        = 'manage_options'; // user capability required to view the page
@@ -49,7 +49,7 @@ class ucf_com_shortcodes_settings {
 		// Register the 'settings' page
 		if (is_network_admin()) {
 			add_action( 'network_admin_menu', array( $this, 'add_plugin_page' ) );
-			add_action( 'network_admin_edit_' . self::option_network_group_name, array( $this, 'save_network_options')  );
+			add_action( 'network_admin_edit_' . self::option_group_name, array( $this, 'save_network_options')  );
 		} else {
 			add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
 		}
@@ -172,8 +172,8 @@ class ucf_com_shortcodes_settings {
 	 */
 	public function create_settings_page() {
 		if (is_network_admin()){
-			$action = 'wp-admin/network/edit.php?action=' . self::option_network_group_name;
-			$settings_slug = self::option_network_group_name;
+			$action = 'wp-admin/network/edit.php?action=' . self::option_group_name;
+			$settings_slug = self::option_group_name;
 		} else {
 			$action = 'options.php';
 			$settings_slug = self::option_group_name;
