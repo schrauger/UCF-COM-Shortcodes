@@ -46,7 +46,7 @@ class ucf_com_shortcodes_settings {
 		) ); //call the 'uninstall' function when plugin is uninstalled completely
 
 		// Register the 'settings' page
-		if (is_multisite()) {
+		if (is_network_admin()) {
 			add_action( 'network_admin_menu', array( $this, 'add_plugin_page' ) );
 		} else {
 			add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
@@ -133,7 +133,7 @@ class ucf_com_shortcodes_settings {
 	 */
 	public function add_plugin_page() {
 		// This page will be under "Settings" menu. add_options_page is merely a WP wrapper for add_submenu_page specifying the 'options-general' menu as parent
-		if (is_multisite()){
+		if (is_network_admin()){
 			$page = 'settings.php';
 		} else {
 			$page = 'options-general.php';
