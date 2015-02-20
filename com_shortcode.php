@@ -76,13 +76,14 @@ abstract class com_shortcode {
 	 * It returns the value after sanitizing it.
 	 *
 	 * @param $settings_id
+	 * @param $require_value Only used in the site-specific settings page, to allow for blank values (otherwise, saving a blank and loading the settings will load the network value, confusing the user)
 	 *
 	 * @return string|void
 	 */
-	public function get_database_settings_value( $settings_id ) {
+	public function get_database_settings_value( $settings_id , $require_value = true ) {
 		$data = get_option( $this->get_section_name() );
 		$value = esc_attr( $data[ $settings_id ] );
-		if (is_multisite() &&
+		if (is_multisite() && $require_value &&
 		    (
 		        (!($value))
 		    ||
@@ -157,7 +158,7 @@ abstract class com_shortcode {
 			         'id'      => $setting_id, // copy/paste id here
 			         'label'   => $setting_label,
 			         'section' => $this->get_section_name(),
-			         'value'   => $this->get_database_settings_value( $setting_id )
+			         'value'   => $this->get_database_settings_value( $setting_id , false)
 			)
 		);
 
