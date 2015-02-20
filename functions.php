@@ -179,7 +179,7 @@ class ucf_com_shortcodes_settings {
 
 			<h2 ><?php echo self::page_title ?></h2 >
 
-			<form method="post" action="options.php" >
+			<form method="post" action="<?php echo $action; ?>" >
 				<?php
 				// This prints out all hidden setting fields
 				settings_fields( self::option_group_name );
