@@ -36,6 +36,15 @@ abstract class com_shortcode {
 	}
 
 	/**
+	 * Must be run after init_shortcode_settings in order to return a correct result.
+	 * Returns true if user-configurable settings exist.
+	 * @return bool
+	 */
+	public function has_settings(){
+		return $this->plugin_settings_exist;
+	}
+
+	/**
 	 * Adds the shortcode to WordPress (if not defined),
 	 * Also adds a css file, if defined.
 	 * Currently does not check that it is a valid css file, but it does ensure the file exists.

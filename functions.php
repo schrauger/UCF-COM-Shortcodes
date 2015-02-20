@@ -195,8 +195,17 @@ class ucf_com_shortcodes_settings {
 	<?php
 	}
 
+	/**
+	 * save the network options page to database
+	 */
 	public function save_network_options(){
-		print_r($_REQUEST);
+		$this->shortcodes_ucf_com = self::get_shortcodes();
+		foreach ( $this->shortcodes_ucf_com as $shortcode ) {
+			$shortcode->init_shortcode_settings();
+			if ($shortcode->has_settings()){
+				update_site_option($shortcode->get_section_name(), $_REQUEST[$shortcode->get_section_name()] );
+			}
+		}
 	}
 
 	/**
