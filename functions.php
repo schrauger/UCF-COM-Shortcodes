@@ -87,13 +87,24 @@ class ucf_com_shortcodes_settings {
 	 * @return array
 	 */
 	public function plugin_action_links( $links, $file ) {
-		if ( strpos( __FILE__, $file ) !== false ) {
-			$links = array_merge(
-				$links,
-				array(
-					'settings' => '<a href="' . admin_url( 'options-general.php?page=' . self::page_slug ) . '">' . __( 'Settings', self::page_slug ) . '</a>'
-				)
-			);
+		if (is_network_admin()){
+			if ( strpos( __FILE__, $file ) !== false ) {
+				$links = array_merge(
+					$links,
+					array(
+						'settings' => '<a href="' . network_admin_url( 'options-general.php?page=' . self::page_slug ) . '">' . __( 'Settings', self::page_slug ) . '</a>'
+					)
+				);
+			}
+		} else {
+			if ( strpos( __FILE__, $file ) !== false ) {
+				$links = array_merge(
+					$links,
+					array(
+						'settings' => '<a href="' . admin_url( 'options-general.php?page=' . self::page_slug ) . '">' . __( 'Settings', self::page_slug ) . '</a>'
+					)
+				);
+			}
 		}
 
 		return $links;
@@ -150,6 +161,11 @@ class ucf_com_shortcodes_settings {
 	 * Tells WordPress how to output the page
 	 */
 	public function create_settings_page() {
+		if (is_network_admin()){
+			$action = 'wp-admin/network/edit.php?action=' . self::option_group_name;
+		} else {
+			$action = 'options.php';
+		}
 		?>
 		<div class="wrap" >
 
