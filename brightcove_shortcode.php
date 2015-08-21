@@ -90,6 +90,8 @@ class brightcove_shortcode extends com_shortcode {
 
 				<script language="JavaScript" type="text/javascript" src="https://sadmin.brightcove.com/js/BrightcoveExperiences.js"></script>
 				<object id="myExperience' . $attrs[ self::tinymce_video_id ] . '" class="BrightcoveExperience ' . ( ( $attrs[ self::tinymce_video_float ] ) ? 'align' . $attrs[ self::tinymce_video_float ] : 'align' . $this->get_database_settings_value( self::player_float_default ) ) . '">
+				  <param name="secureConnections" value="true" />
+				  <param name="secureHTMLConnections" value="true" /
 				  <param name="wmode" value="transparent">
 				  <param name="bgcolor" value="#FFFFFF" />
 				  <param name="playerID" value="' . $this->get_database_settings_value( self::player_id ) . '" />
