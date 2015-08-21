@@ -57,7 +57,7 @@ class brightcove_shortcode extends com_shortcode {
 			self::player_key,
 			'PlayerKey',
 			'PlayerKey as defined by your Brightcove account.'
-		);a
+		);
 
 		/*		$this->add_setting_tinymce_input( self::tinymce_video_id, 'Video ID' );*/
 
