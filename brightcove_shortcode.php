@@ -88,7 +88,7 @@ class brightcove_shortcode extends com_shortcode {
 	public function replacement( $attrs = null ) {
 		return '<div style="display:none;"></div>
 
-				<script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+				<script language="JavaScript" type="text/javascript" src="https://sadmin.brightcove.com/js/BrightcoveExperiences.js"></script>
 				<object id="myExperience' . $attrs[ self::tinymce_video_id ] . '" class="BrightcoveExperience ' . ( ( $attrs[ self::tinymce_video_float ] ) ? 'align' . $attrs[ self::tinymce_video_float ] : 'align' . $this->get_database_settings_value( self::player_float_default ) ) . '">
 				  <param name="wmode" value="transparent">
 				  <param name="bgcolor" value="#FFFFFF" />
