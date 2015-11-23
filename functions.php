@@ -6,7 +6,7 @@ require_once( 'three_box_shortcode.php' );
 require_once( 'two_column_shortcode.php' );
 /*
  Plugin Name: UCF COM Shortcodes
-Plugin URI: https://github.com/medweb/UCF-COM-Shortcodes
+Plugin URI: https://github.com/schrauger/UCF-COM-Shortcodes
 Description: Adds custom shortcodes, used in the UCF College of Medicine website.
 Version: 1.0
 Author: Stephen Schrauger
