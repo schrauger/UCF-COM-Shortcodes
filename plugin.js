@@ -8,7 +8,7 @@
             icon: false,
             type: 'menubutton',
             menu: [
-                {
+                /*{
                     title: 'Brightcove Videos',
                     text: 'Brightcove',
                     icon: 'icon dashicons-format-video', // video icon
@@ -54,7 +54,7 @@
 
                         });
                     }
-                },
+                },*/
                 {
                     title: 'Eight Box image layout',
                     text: 'Eight Box',
