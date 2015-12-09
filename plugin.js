@@ -56,6 +56,37 @@
                     }
                 },*/
                 {
+                    title: 'Staff Listing',
+                    text: 'Staff',
+                    icon: 'icon dashicons-admin-users', // user silhouette icon
+                    onclick: function () {
+                        // Open window
+                        editor.windowManager.open({
+                            title: 'Staff Listing',
+                            body: [
+                                {
+                                    type: 'textbox',
+                                    name: 'category',
+                                    label: 'Staff Category. If unspecified, all profiles are shown.'
+                                },
+                                {
+                                    type: 'textbox',
+                                    name: 'hide_photo',
+                                    label: 'Hide Staff Photos. Leave blank to show photos.'
+                                }
+                            ],
+                            onsubmit: function (e) {
+                                // Insert content when the window form is submitted
+                                editor.insertContent('[staff ' +
+                                    ((e.data.category) ? ' category="' + e.data.category + '"' : '') +
+                                    ((e.data.hide_photo) ? ' hide_photo="' + e.data.hide_photo + '"' : '') +
+                                    ']');
+                            }
+
+                        });
+                    }
+                },
+                {
                     title: 'Eight Box image layout',
                     text: 'Eight Box',
                     icon: 'icon dashicons-format-image', // video icon

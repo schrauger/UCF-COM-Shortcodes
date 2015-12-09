@@ -4,6 +4,7 @@ require_once( 'brightcove_shortcode.php' );
 require_once( 'eight_box_shortcode.php' );
 require_once( 'three_box_shortcode.php' );
 require_once( 'two_column_shortcode.php' );
+require_once( 'staff_shortcode.php');
 /*
  Plugin Name: UCF COM Shortcodes
 Plugin URI: https://github.com/schrauger/UCF-COM-Shortcodes
@@ -108,7 +109,8 @@ class ucf_com_shortcodes_settings {
 			new base_url_shortcode(),
 			new eight_box_shortcode(),
 			new three_box_shortcode(),
-			new two_column_shortcode()
+			new two_column_shortcode(),
+			new staff_shortcode()
 		);
 	}
 
