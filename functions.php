@@ -5,6 +5,7 @@ require_once( 'eight_box_shortcode.php' );
 require_once( 'three_box_shortcode.php' );
 require_once( 'two_column_shortcode.php' );
 require_once( 'staff_shortcode.php');
+require_once( 'newsfeed_shortcode.php');
 /*
  Plugin Name: UCF COM Shortcodes
 Plugin URI: https://github.com/schrauger/UCF-COM-Shortcodes
@@ -110,7 +111,8 @@ class ucf_com_shortcodes_settings {
 			new eight_box_shortcode(),
 			new three_box_shortcode(),
 			new two_column_shortcode(),
-			new staff_shortcode()
+			new staff_shortcode(),
+			new newsfeed_shortcode()
 		);
 	}
 

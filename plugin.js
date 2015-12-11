@@ -87,6 +87,55 @@
                     }
                 },
                 {
+                    title: 'Newsfeed Listings',
+                    text: 'Newsfeed',
+                    icon: 'icon dashicons-welcome-widgets-menus', // kind of newspaper icon
+                    onclick: function () {
+                        // Open window
+                        editor.windowManager.open({
+                            title: 'Newsfeed Listings',
+                            body: [
+                                {
+                                    type: 'textbox',
+                                    name: 'category',
+                                    label: 'News Category. If unspecified, all articles are shown.'
+                                },
+                                {
+                                    type: 'textbox',
+                                    name: 'hide_news',
+                                    label: 'Hide news listing. Useful if you only want the slider.'
+                                },
+                                {
+                                    type: 'textbox',
+                                    name: 'show_slider',
+                                    label: 'Show slider. If unspecified, news image slider will not be included.'
+                                },
+                                {
+                                    type: 'textbox',
+                                    name: 'news_count',
+                                    label: 'How many articles to include in news listing. If unspecified, all articles are shown  (unless a global default is defined).'
+                                },
+                                {
+                                    type: 'textbox',
+                                    name: 'slider_count',
+                                    label: 'How many articles to include in slider. If unspecified, it will be equal to news_count.'
+                                }
+                            ],
+                            onsubmit: function (e) {
+                                // Insert content when the window form is submitted
+                                editor.insertContent('[newsfeed ' +
+                                ((e.data.category) ? ' category="' + e.data.category + '"' : '') +
+                                ((e.data.hide_news) ? ' hide_news="' + e.data.hide_news + '"' : '') +
+                                ((e.data.show_slider) ? ' show_slider="' + e.data.show_slider + '"' : '') +
+                                ((e.data.news_count) ? ' news_count="' + e.data.news_count + '"' : '') +
+                                ((e.data.slider_count) ? ' slider_count="' + e.data.slider_count + '"' : '') +
+                                ']');
+                            }
+
+                        });
+                    }
+                },
+                {
                     title: 'Eight Box image layout',
                     text: 'Eight Box',
                     icon: 'icon dashicons-format-image', // video icon
