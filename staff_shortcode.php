@@ -4,8 +4,8 @@ require_once( 'com_shortcode.php' );
 /**
  * Created by PhpStorm.
  * User: stephen
- * Date: 10/20/14
- * Time: 10:58 AM
+ * Date: 12/09/15
+ * Time: 3:00 PM
  */
 class staff_shortcode extends com_shortcode {
 
@@ -17,9 +17,6 @@ class staff_shortcode extends com_shortcode {
 
 	const tinymce_staff_category   = 'category'; // if unset, show all profiles. otherwise, limit to profiles in this category name or slug.
 	const tinymce_no_image   = 'hide_photo'; // if set to anything, will cause profile photos to hide via css class 'no-img-card'.
-
-
-	const plugin_css_file = 'staff.css';
 
 	public function get_name() {
 		return self::name;
