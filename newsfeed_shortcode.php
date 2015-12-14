@@ -76,6 +76,8 @@ class newsfeed_shortcode extends com_shortcode {
 		//$return .= '<div class="news-container white-box">';
 
 		if ($show_slider) {
+			global $newsHomeSlider; // the footer in the theme checks this global.
+			$newsHomeSlider = true;
 			$return .= $this->replacement_slider($newsfeed_category, $slider_count);
 		}
 		if (!($hide_news)){
