@@ -119,6 +119,11 @@
                                     type: 'textbox',
                                     name: 'slider_count',
                                     label: 'How many articles to include in slider. If unspecified, it will be equal to news_count.'
+                                },
+                                {
+                                    type: 'textbox',
+                                    name: 'blog',
+                                    label: 'Slug or numeric id of the blog from which to pull news. If unspecified, it will pull from current blog.'
                                 }
                             ],
                             onsubmit: function (e) {
@@ -129,6 +134,7 @@
                                 ((e.data.show_slider) ? ' show_slider="' + e.data.show_slider + '"' : '') +
                                 ((e.data.news_count) ? ' news_count="' + e.data.news_count + '"' : '') +
                                 ((e.data.slider_count) ? ' slider_count="' + e.data.slider_count + '"' : '') +
+                                ((e.data.blog) ? ' blog="' + e.data.blog + '"' : '') +
                                 ']');
                             }
 

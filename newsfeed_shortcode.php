@@ -23,6 +23,7 @@ class newsfeed_shortcode extends com_shortcode {
 	const tinymce_news_count = 'news_count'; // number of articles to show in list
 	const slider_count_default  = 'ucf_com_newsfeed_slider_count_default';
 	const tinymce_slider_count = 'slider_count'; // number of articles to include with the slider (show_slider must be true for this to matter)
+	const tinymce_blog_name_or_id = 'blog'; // name or id of blog
 
 	public function get_name() {
 		return self::name;
@@ -68,12 +69,24 @@ class newsfeed_shortcode extends com_shortcode {
 		$show_slider = ( ( $attrs[ self::tinymce_show_slider ] ) ? $attrs[ self::tinymce_show_slider ] : $this->get_database_settings_value( self::show_slider_default ) );
 		$news_count = ( ( $attrs[ self::tinymce_news_count ] ) ? $attrs[ self::tinymce_news_count ] : $this->get_database_settings_value( self::news_count_default ) );
 		$slider_count = ( ( $attrs[ self::tinymce_slider_count ] ) ? $attrs[ self::tinymce_slider_count ] : $this->get_database_settings_value( self::slider_count_default ) );
+		$blog_id = ( ( $attrs[ self::tinymce_blog_name_or_id] ) ? $attrs[ self::tinymce_blog_name_or_id ] : get_current_blog_id() );
+
+
 		if (!$slider_count){
 			// if slider_count is undefined, default to the same as news_count
 			$slider_count = $news_count;
 		}
 		$return = '';
 		//$return .= '<div class="news-container white-box">';
+
+		// get blog number if not numeric
+		if (($blog_id) && (!(is_numeric($blog_id)))){
+			$blog_id = get_id_from_blogname($blog_id);
+		}
+
+		if ($blog_id) {
+			switch_to_blog($blog_id);
+		}
 
 		if ($show_slider) {
 			global $newsHomeSlider; // the footer in the theme checks this global.
@@ -82,6 +95,10 @@ class newsfeed_shortcode extends com_shortcode {
 		}
 		if (!($hide_news)){
 			$return .= $this->replacement_news($newsfeed_category, $news_count);
+		}
+
+		if ($blog_id) {
+			restore_current_blog();
 		}
 
 		//$return .= '</div>';
@@ -125,6 +142,7 @@ class newsfeed_shortcode extends com_shortcode {
 
 			$args = array(
 				'widget' => 'news-large',
+				'switch_to_main' => false, // don't switch inside the include; we handle any required switching prior to this function call
 				'post_type' => 'news',
 				'posts_per_page' => $slider_count,
 				'tax_query' => array(
@@ -142,6 +160,7 @@ class newsfeed_shortcode extends com_shortcode {
 
 			$args = array(
 				'widget' => 'news-large',
+				'switch_to_main' => false,
 				'post_type' => 'news',
 				'posts_per_page' => $slider_count,
 			);
