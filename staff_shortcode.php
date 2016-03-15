@@ -18,6 +18,9 @@ class staff_shortcode extends com_shortcode {
 	const tinymce_staff_category   = 'category'; // if unset, show all profiles. otherwise, limit to profiles in this category name or slug.
 	const tinymce_no_image   = 'hide_photo'; // if set to anything, will cause profile photos to hide via css class 'no-img-card'.
 
+	const contact_card_file_standard = 'contact-card.php';
+	const contact_card_file_resident = 'contact-card-resident.php';
+
 	public function get_name() {
 		return self::name;
 	}
@@ -39,6 +42,8 @@ class staff_shortcode extends com_shortcode {
 	}
 
 	public function replacement( $attrs = null ) {
+		$include_file = self::contact_card_file_standard;
+
 		$staff_category = $attrs[ self::tinymce_staff_category ];
 		$no_image = $attrs[ self::tinymce_no_image ];
 
@@ -82,6 +87,11 @@ class staff_shortcode extends com_shortcode {
 				$staff_category = '!no_category'; // cause the query to return no results (there shouldn't exist a slug with exclamation points)
 			}
 
+			if ( $staff_category == 'residents') {
+				// residents have different fields. use a specific template for them.
+				$include_file = self::contact_card_file_resident;
+			}
+
 			$args = array(
 				'post_type' => 'profiles',
 				'posts_per_page' => -1,
@@ -120,7 +130,7 @@ class staff_shortcode extends com_shortcode {
 			// get each profile.
 			$the_query->the_post();
 			$return .= "<h4 class='toggle'>" . get_the_title() . "</h4>";
-			$return .= "<div class='$page_class'>" . $this->include_file_return_output(plugin_dir_path( __FILE__ ) . 'contact-card.php') . "</div>";
+			$return .= "<div class='$page_class'>" . $this->include_file_return_output(plugin_dir_path( __FILE__ ) . $include_file ) . "</div>";
 		}
 		wp_reset_postdata();
 		return $return;

@@ -3,7 +3,9 @@
 $facPage = get_the_title();
 
 $preview = wp_get_attachment_image_src( get_field( 'photo' ), 'medium' );
-$image = $preview[0]; ?>
+$image = $preview[0];
+
+?>
 
 <aside class="contact-card">
         
