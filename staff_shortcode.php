@@ -77,6 +77,12 @@ class staff_shortcode extends com_shortcode {
 				if ( ( $staff_category == $category_normalized_name ) || ( $staff_category == $category_normalized_slug ) ) {
 					// if match found, set the staff_category to the slug of the matching category. use this for the sql query.
 					$staff_category = $category->slug;
+					$staff_parent = '';
+					if ($category->parent){
+						// if the user requested category has a parent, save that info for later (only currently works for direct parent, not further ancestors)
+						$staff_parent = get_term($category->parent);
+						$staff_parent = $staff_parent->slug;
+					}
 
 				}
 			}
@@ -90,7 +96,7 @@ class staff_shortcode extends com_shortcode {
 				$staff_category = '!no_category'; // cause the query to return no results (there shouldn't exist a slug with exclamation points)
 			}
 
-			if ( $staff_category == 'residents') {
+			if (( $staff_category == 'residents') || ($staff_parent == 'residents')) {
 				// residents have different fields. use a specific template for them.
 				$include_file = self::contact_card_file_resident;
 				$meta_key = self::contact_card_meta_key_resident;
