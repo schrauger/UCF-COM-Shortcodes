@@ -19,7 +19,9 @@ class staff_shortcode extends com_shortcode {
 	const tinymce_no_image   = 'hide_photo'; // if set to anything, will cause profile photos to hide via css class 'no-img-card'.
 
 	const contact_card_file_standard = 'contact-card.php';
+	const contact_card_meta_key_standard = 'last_name';
 	const contact_card_file_resident = 'contact-card-resident.php';
+	const contact_card_meta_key_resident = 'res_last_name';
 
 	public function get_name() {
 		return self::name;
@@ -43,6 +45,7 @@ class staff_shortcode extends com_shortcode {
 
 	public function replacement( $attrs = null ) {
 		$include_file = self::contact_card_file_standard;
+		$meta_key = self::contact_card_meta_key_standard;
 
 		$staff_category = $attrs[ self::tinymce_staff_category ];
 		$no_image = $attrs[ self::tinymce_no_image ];
@@ -90,6 +93,7 @@ class staff_shortcode extends com_shortcode {
 			if ( $staff_category == 'residents') {
 				// residents have different fields. use a specific template for them.
 				$include_file = self::contact_card_file_resident;
+				$meta_key = self::contact_card_meta_key_resident;
 			}
 
 			$args = array(
@@ -97,7 +101,7 @@ class staff_shortcode extends com_shortcode {
 				'posts_per_page' => -1,
 				'orderby' => 'meta_value',
 				'order' => 'ASC',
-				'meta_key' => 'last_name',
+				'meta_key' => $meta_key,
 				'tax_query' => array(
 					array(
 						'taxonomy' => self::taxonomy_categories,
@@ -116,7 +120,7 @@ class staff_shortcode extends com_shortcode {
 				'posts_per_page' => -1,
 				'orderby' => 'meta_value',
 				'order' => 'ASC',
-				'meta_key' => 'last_name'
+				'meta_key' => $meta_key
 			);
 		}
 
