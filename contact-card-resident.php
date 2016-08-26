@@ -16,6 +16,9 @@ $image = $preview[0];
         if ($res_medical_school = get_field( 'res_medical_school' )){
             echo "<li><span>Medical School:</span>$res_medical_school</li>";
         }
+        if ($res_residency = get_field( 'res_residency' )){
+            echo "<li><span>Residency:</span>$res_residency</li>";
+        }
         if ($res_resident_year = get_field( 'res_resident_year' )){
             echo "<li><span>Resident Year:</span>$res_resident_year</li>";
         }
