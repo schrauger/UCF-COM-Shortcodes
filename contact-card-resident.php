@@ -13,6 +13,9 @@ $image = $preview[0];
 
     <ul class="contact-info">
         <?php
+        if ($res_clinical_site = get_field( 'res_clinical_site' )){
+            echo "<li><span>Clinical Site:</span>$res_clinical_site</li>";
+        }
         if ($res_medical_school = get_field( 'res_medical_school' )){
             echo "<li><span>Medical School:</span>$res_medical_school</li>";
         }
